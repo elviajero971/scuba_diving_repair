@@ -19,7 +19,8 @@ class PaymentsController < ApplicationController
     # Create a Stripe Checkout Session
     session = Stripe::Checkout::Session.create({
                                                  metadata: {
-                                                   service_id: @service.id
+                                                   service_id: @service.id,
+                                                   product_id: @product.id
                                                  },
                                                  payment_method_types: ['card'],
                                                  line_items: [{
@@ -27,8 +28,8 @@ class PaymentsController < ApplicationController
                                                                 quantity: 1
                                                               }],
                                                  mode: 'payment',
-                                                 success_url: payment_success_url(@service, session_id: '{CHECKOUT_SESSION_ID}'),
-                                                 cancel_url: payment_cancel_url(@service, session_id: '{CHECKOUT_SESSION_ID}')
+                                                 success_url: payment_success_url(@service, @product.id, session_id: '{CHECKOUT_SESSION_ID}'),
+                                                 cancel_url: payment_cancel_url(@service, @product.id, session_id: '{CHECKOUT_SESSION_ID}')
                                                })
 
     # Create a Payment record associated with the service
@@ -46,12 +47,15 @@ class PaymentsController < ApplicationController
 
   def success
     puts "Payment success from PaymentsController#success"
+    puts "service_id: #{params[:service_id]}"
+    puts "product_id: #{params[:product_id]}"
     @service = Service.find(params[:service_id])
+    @product_type = Product.find_by(id: params[:product_id]).product_type.to_sym
     payment = @service.payments.find_by(stripe_payment_id: params[:session_id])
 
     puts "Payment updates status to succeeded"
     payment.update(status: :succeeded)
-    @service.update(payment_status: :paid, status: :not_delivered)
+    @service.update(payment_status: :paid, status: :not_delivered, service_type: @product_type.to_sym)
   end
 
   def cancel
@@ -67,11 +71,11 @@ class PaymentsController < ApplicationController
     @service = Service.find(params[:service_id])
   end
 
-  def payment_success_url(service, session_id:)
-    "https://#{ENV['ENV_HOST']}/services/#{service.id}/payment_success?session_id=#{session_id}"
+  def payment_success_url(service, product_id, session_id:)
+    "https://#{ENV['ENV_HOST']}/services/#{service.id}/payment_success?session_id=#{session_id}&product_id=#{product_id}"
   end
 
-  def payment_cancel_url(service, session_id:)
-    "https://#{ENV['ENV_HOST']}/services/#{service.id}/payment_cancel?session_id=#{session_id}"
+  def payment_cancel_url(service, product_id, session_id:)
+    "https://#{ENV['ENV_HOST']}/services/#{service.id}/payment_cancel?session_id=#{session_id}&product_id=#{product_id}"
   end
 end
