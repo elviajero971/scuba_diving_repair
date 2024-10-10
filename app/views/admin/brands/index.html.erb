@@ -1,0 +1,18 @@
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-bold mb-4">brands</h2>
+
+  <table class="min-w-full bg-white">
+    <thead>
+      <tr>
+        <th class="text-start py-2 px-4 border-b">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @brands.each do |brand| %>
+      <tr>
+        <td class="text-start py-2 px-4 border-b"><%= brand.name %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

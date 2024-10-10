@@ -1,0 +1,28 @@
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-bold mb-4">Services</h2>
+
+  <table class="min-w-full bg-white">
+    <thead>
+    <tr>
+      <th class="text-start py-2 px-4 border-b">User email</th>
+      <th class="text-start py-2 px-4 border-b">Gear name</th>
+      <th class="text-start py-2 px-4 border-b">Service Type</th>
+      <th class="text-start py-2 px-4 border-b">Service creation date</th>
+      <th class="text-start py-2 px-4 border-b">Service update date</th>
+      <th class="text-start py-2 px-4 border-b">Service Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td class="text-start py-2 px-4 border-b"><%= service.user.email %></td>
+        <td class="text-start py-2 px-4 border-b"><%= service.gear.name %></td>
+        <td class="text-start py-2 px-4 border-b"><%= service.service_type %></td>
+        <td class="text-start py-2 px-4 border-b"><%= service.created_at %></td>
+        <td class="text-start py-2 px-4 border-b"><%= service.updated_at %></td>
+        <td class="text-start py-2 px-4 border-b"><%= service.status %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,22 @@
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-bold mb-4">Gears</h2>
+
+  <table class="min-w-full bg-white">
+    <thead>
+    <tr>
+      <th class="text-start py-2 px-4 border-b">Name</th>
+      <th class="text-start py-2 px-4 border-b">Brand</th>
+      <th class="text-start py-2 px-4 border-b">Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @gears.each do |gear| %>
+      <tr>
+        <td class="text-start py-2 px-4 border-b"><%= gear.name %></td>
+        <td class="text-start py-2 px-4 border-b"><%= gear.brand.name %></td>
+        <td class="text-start py-2 px-4 border-b"><%= gear.gear_type %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -13,9 +13,8 @@
 
   <body>
     <%= render "shared/navbar" %>
-    <main class="container mx-auto mt-28 px-5 flex justify-center">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+    <%= render "shared/flash_message" %>
+    <main class="container mx-auto px-5 flex justify-center">
       <%= yield %>
     </main>
   </body>

@@ -1,0 +1,20 @@
+<div class="container mx-auto py-8">
+  <h1 class="text-3xl font-bold mb-6">Service Details</h1>
+
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <p><strong>Gear:</strong> <%= @service.gear.name %></p>
+    <p><strong>Service Type:</strong> <%= @service.service_type&.capitalize %></p>
+    <p><strong>Status:</strong> <%= @service.status.humanize %></p>
+    <p><strong>Payment:</strong> <%= @service.payment_status.humanize %></p>
+  </div>
+
+  <% if @service.payment_status == 'paid' %>
+    <div class="w-32 bg-red-500 text-white font-bold py-2 px-4 rounded">Paid</div>
+  <%  else  %>
+  <%=  button_to 'Pay for Basic Repair', service_payments_path(@service, product_id: @product_basic.id), method: :post, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded', data: { turbo: false }  %>
+  <%=  button_to 'Pay for Premium Repair', service_payments_path(@service, product_id: @product_premium.id), method: :post, class: 'bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded', data: { turbo: false }  %>
+  <%  end %>
+  <div class="mt-6">
+    <%= link_to 'Back to Services', services_path, class: 'bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded' %>
+  </div>
+</div>
