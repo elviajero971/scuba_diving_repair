@@ -18,5 +18,14 @@ module ScubaDivingShop
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Set the default locale to English
+    config.i18n.default_locale = :en
+
+    # Load all locale files from config/locales
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+
+    # Specify the available locales
+    config.i18n.available_locales = [:en, :fr, :es, :ca]
   end
 end

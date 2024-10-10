@@ -76,3 +76,5 @@ end
 gem 'devise'
 
 gem 'stripe'
+
+gem 'rails-i18n'
