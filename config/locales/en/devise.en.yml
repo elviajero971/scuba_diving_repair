@@ -16,20 +16,39 @@ en:
       timeout: "Your session expired. Please sign in again to continue."
       unauthenticated: "You need to sign in or sign up before continuing."
       unconfirmed: "You have to confirm your email address before continuing."
+    links:
+      login: "Log in"
+      sign_up: "Sign up"
+      forgot_password: "Forgot your password?"
+      resend_confirmation: "Didn't receive confirmation instructions?"
+      resend_unlock: "Didn't receive unlock instructions?"
+      sign_in_with_provider: "Sign in with %{provider}"
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        hello: "Hello %{email}!"
+        confirm_email: "You can confirm your account email through the link below:"
+        confirm_link: "Confirm my account"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        hello: "Hello %{email}!"
+        requested_link: "Someone has requested a link to change your password. You can do this through the link below."
+        change_password: "Change my password"
+        ignore_email: "If you didn't request this, please ignore this email."
+        password_not_changed: "Your password won't change until you access the link above and create a new one."
       unlock_instructions:
-        subject: "Unlock instructions"
+        hello: "Hello %{email}!"
+        account_locked: "Your account has been locked due to an excessive number of unsuccessful sign in attempts."
+        unlock_instructions: "Click the link below to unlock your account:"
+        unlock_link: "Unlock my account"
       email_changed:
-        subject: "Email Changed"
+        hello: "Hello %{email}!"
+        email_being_changed: "We're contacting you to notify you that your email is being changed to %{unconfirmed_email}."
+        email_changed: "We're contacting you to notify you that your email has been changed to %{email}."
       password_change:
-        subject: "Password Changed"
-    omniauth_callbacks:
-      failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
-      success: "Successfully authenticated from %{kind} account."
+        hello: "Hello %{email}!"
+        notification: "We're contacting you to notify you that your password has been changed."
+      omniauth_callbacks:
+        failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
+        success: "Successfully authenticated from %{kind} account."
     passwords:
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
       send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."

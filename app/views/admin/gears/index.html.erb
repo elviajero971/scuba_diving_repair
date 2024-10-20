@@ -1,12 +1,17 @@
 <div class="bg-white shadow-md rounded-lg p-6">
-  <h2 class="text-2xl font-bold mb-4">Gears</h2>
+  <h2 class="text-2xl font-bold mb-4"><%= t('admin.gears.index.title') %></h2>
+
+  <div class="mb-4 text-right">
+    <%= link_to t('admin.gears.index.create_button'), new_admin_gear_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
 
   <table class="min-w-full bg-white">
     <thead>
     <tr>
-      <th class="text-start py-2 px-4 border-b">Name</th>
-      <th class="text-start py-2 px-4 border-b">Brand</th>
-      <th class="text-start py-2 px-4 border-b">Type</th>
+      <th class="text-start py-2 px-4 border-b"><%= t('admin.gears.index.name_column') %></th>
+      <th class="text-start py-2 px-4 border-b"><%= t('admin.gears.index.brand_column') %></th>
+      <th class="text-start py-2 px-4 border-b"><%= t('admin.gears.index.type_column') %></th>
+      <th class="text-start py-2 px-4 border-b"><%= t('admin.gears.index.actions_column') %></th>
     </tr>
     </thead>
     <tbody>
@@ -15,6 +20,10 @@
         <td class="text-start py-2 px-4 border-b"><%= gear.name %></td>
         <td class="text-start py-2 px-4 border-b"><%= gear.brand.name %></td>
         <td class="text-start py-2 px-4 border-b"><%= gear.gear_type %></td>
+        <td class="text-start py-2 px-4 border-b">
+          <%= link_to t('admin.gears.index.edit'), edit_admin_gear_path(gear), class: "text-blue-500 hover:underline" %> |
+          <%= link_to t('admin.gears.index.destroy'), admin_gear_path(gear), method: :delete, data: { turbo_method: :delete, turbo_confirm: t('admin.gears.index.confirm_destroy') }, class: "text-red-500 hover:underline" %>
+        </td>
       </tr>
     <% end %>
     </tbody>

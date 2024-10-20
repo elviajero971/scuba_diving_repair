@@ -1,0 +1,34 @@
+<div class="container mx-auto py-8">
+  <h2 class="text-2xl font-bold mb-6"><%= t('user_gears.index.title') %></h2>
+
+  <!-- List of User Gears -->
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h3 class="text-lg font-bold mb-4"><%= t('user_gears.index.user_gear_list') %></h3>
+
+    <!-- Button to add new gear -->
+    <div class="mt-6 text-right">
+      <%= link_to t('user_gears.index.add_gear_button'), new_user_gear_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+
+    <table class="min-w-full bg-white">
+      <thead>
+      <tr>
+        <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.gear_name') %></th>
+        <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.brand_name') %></th>
+        <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.actions') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @user_gears.each do |user_gear| %>
+        <tr>
+          <td class="py-2 px-4 border-b"><%= user_gear.gear.name %></td>
+          <td class="py-2 px-4 border-b"><%= user_gear.gear.brand.name %></td>
+          <td class="py-2 px-4 border-b">
+            <%= link_to t('user_gears.index.remove'), user_gear_path(user_gear), method: :delete, data: { turbo_confirm: t('user_gears.index.confirm_remove') }, class: "text-red-500 hover:underline" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

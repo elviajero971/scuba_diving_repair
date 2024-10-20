@@ -1,0 +1,18 @@
+ca:
+  activerecord:
+    attributes:
+      service:
+        status:
+          pending: "Pendent"
+          not_delivered: "No lliurat"
+          delivered: "Lliurat"
+          ongoing_maintenance: "Manteniment en curs"
+          ready_for_pick_up: "A punt per recollir"
+          completed: "Completat"
+        service_type:
+          basic: "Bàsic"
+          premium: "Premium"
+          unknown: "Desconegut"
+        payment_status:
+          not_paid: "No pagat"
+          paid: "Pagat"

@@ -1,0 +1,14 @@
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-bold mb-4"><%= t('admin.brands.edit.title') %></h2>
+
+  <%= form_with model: @brand, url: admin_brand_path(@brand), method: :patch, class: "space-y-4" do |f| %>
+    <div>
+      <%= f.label :name, t('admin.brands.form.name_label'), class: 'block text-gray-700 font-medium' %>
+      <%= f.text_field :name, class: 'w-full px-4 py-2 mt-1 border rounded-lg' %>
+    </div>
+
+    <div class="text-right">
+      <%= f.submit t('admin.brands.form.update_button'), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,59 @@
+fr:
+  admin:
+    sidebar:
+      dashboard: "Tableau de bord"
+      gears: "Équipements"
+      brands: "Marques"
+      services: "Services"
+    brands:
+      index:
+        title: "Marques"
+        name_column: "Nom"
+        actions_column: "Actions"
+        create_button: "Créer une marque"
+        edit: "Modifier"
+        destroy: "Supprimer"
+        confirm_destroy: "Êtes-vous sûr de vouloir supprimer cette marque ?"
+      new:
+        title: "Nouvelle Marque"
+      create:
+        success: "Marque créée avec succès."
+      edit:
+        title: "Modifier la Marque"
+      update:
+        success: "Marque mise à jour avec succès."
+      form:
+        name_label: "Nom de la marque"
+        create_button: "Créer la marque"
+        update_button: "Mettre à jour la marque"
+      destroy:
+        has_gears_warning: "Impossible de supprimer cette marque car des équipements y sont associés."
+        success: "Marque supprimée avec succès."
+    gears:
+      index:
+        title: "Équipements"
+        name_column: "Nom"
+        brand_column: "Marque"
+        type_column: "Type"
+        actions_column: "Actions"
+        create_button: "Créer un équipement"
+        edit: "Modifier"
+        destroy: "Supprimer"
+        confirm_destroy: "Êtes-vous sûr de vouloir supprimer cet équipement ?"
+      new:
+        title: "Nouvel Équipement"
+      edit:
+        title: "Modifier l'Équipement"
+      form:
+        name_label: "Nom de l'Équipement"
+        brand_label: "Marque"
+        type_label: "Type d'Équipement"
+        create_button: "Créer l'Équipement"
+        update_button: "Mettre à jour l'Équipement"
+      create:
+        success: "Équipement créé avec succès."
+      update:
+        success: "Équipement mis à jour avec succès."
+      destroy:
+        success: "Équipement supprimé avec succès."
+        has_services_warning: "Impossible de supprimer cet équipement car des services y sont associés."

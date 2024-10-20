@@ -1,0 +1,21 @@
+ca:
+  services:
+    index:
+      title: "Llista de serveis"
+      create_button: "Crear servei"
+      table:
+        gear: "Equip"
+        service_type: "Tipus de servei"
+        status: "Estat"
+        payment:
+          label: "Pagament"
+          payment_button_premium: "Pagament Premium"
+          payment_button_basic: "Pagament Bàsic"
+    new:
+      title: "Crear un servei"
+      brand:
+        label: "Seleccionar una marca"
+        prompt: "Escollir una marca"
+      gear:
+        label: "Seleccionar un equipament"
+      submit_button: "Crear el servei"

@@ -1,16 +1,25 @@
 <div class="bg-white shadow-md rounded-lg p-6">
-  <h2 class="text-2xl font-bold mb-4">brands</h2>
+  <h2 class="text-2xl font-bold mb-4"><%= t('admin.brands.index.title') %></h2>
+
+  <div class="mb-4 text-right">
+    <%= link_to t('admin.brands.index.create_button'), new_admin_brand_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
 
   <table class="min-w-full bg-white">
     <thead>
-      <tr>
-        <th class="text-start py-2 px-4 border-b">Name</th>
-      </tr>
+    <tr>
+      <th class="text-start py-2 px-4 border-b"><%= t('admin.brands.index.name_column') %></th>
+      <th class="text-start py-2 px-4 border-b"><%= t('admin.brands.index.actions_column') %></th>
+    </tr>
     </thead>
     <tbody>
     <% @brands.each do |brand| %>
       <tr>
         <td class="text-start py-2 px-4 border-b"><%= brand.name %></td>
+        <td class="text-start py-2 px-4 border-b">
+          <%= link_to t('admin.brands.index.edit'), edit_admin_brand_path(brand), class: "text-blue-500 hover:underline" %> |
+          <%= link_to t('admin.brands.index.destroy'), admin_brand_path(brand), method: :delete, data: { turbo_method: :delete, turbo_confirm: t('admin.brands.index.confirm_destroy') }, class: "text-red-500 hover:underline" %>
+        </td>
       </tr>
     <% end %>
     </tbody>

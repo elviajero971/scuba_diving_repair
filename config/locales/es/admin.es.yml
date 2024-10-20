@@ -1,0 +1,59 @@
+es:
+  admin:
+    sidebar:
+      dashboard: "Panel de control"
+      gears: "Equipos"
+      brands: "Marcas"
+      services: "Servicios"
+    brands:
+      index:
+        title: "Marcas"
+        name_column: "Nombre"
+        actions_column: "Acciones"
+        create_button: "Crear marca"
+        edit: "Editar"
+        destroy: "Eliminar"
+        confirm_destroy: "¿Estás seguro de que deseas eliminar esta marca?"
+      new:
+        title: "Nueva Marca"
+      create:
+        success: "Marca creada con éxito."
+      edit:
+        title: "Editar Marca"
+      update:
+        success: "Marca actualizada con éxito."
+      form:
+        name_label: "Nombre de la marca"
+        create_button: "Crear marca"
+        update_button: "Actualizar marca"
+      destroy:
+        has_gears_warning: "No se puede eliminar esta marca porque hay equipos asociados a ella."
+        success: "Marca eliminada con éxito."
+    gears:
+      index:
+        title: "Equipos"
+        name_column: "Nombre"
+        brand_column: "Marca"
+        type_column: "Tipo"
+        actions_column: "Acciones"
+        create_button: "Crear equipo"
+        edit: "Editar"
+        destroy: "Eliminar"
+        confirm_destroy: "¿Estás seguro de que deseas eliminar este equipo?"
+      new:
+        title: "Nuevo Equipo"
+      edit:
+        title: "Editar Equipo"
+      form:
+        name_label: "Nombre del equipo"
+        brand_label: "Marca"
+        type_label: "Tipo de equipo"
+        create_button: "Crear equipo"
+        update_button: "Actualizar equipo"
+      create:
+        success: "Equipo creado con éxito."
+      update:
+        success: "Equipo actualizado con éxito."
+      destroy:
+        success: "Equipo eliminado con éxito."
+        has_services_warning: "No se puede eliminar este equipo porque hay servicios asociados."

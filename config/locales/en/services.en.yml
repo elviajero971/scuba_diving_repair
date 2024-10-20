@@ -1,0 +1,21 @@
+en:
+  services:
+    index:
+      title: "List of services"
+      create_button: "Create service"
+      table:
+        gear: "Gear"
+        service_type: "Service Type"
+        status: "Status"
+        payment:
+          label: "Payment"
+          payment_button_premium: "Premium Payment"
+          payment_button_basic: "Basic Payment"
+    new:
+      title: "Create a service"
+      brand:
+        label: "Select a brand"
+        prompt: "Choose a brand"
+      gear:
+        label: "Select a gear"
+      submit_button: "Create service"

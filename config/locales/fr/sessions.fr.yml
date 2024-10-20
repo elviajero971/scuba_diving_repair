@@ -1,0 +1,8 @@
+fr:
+  sessions:
+    new:
+      title: "Se connecter"
+      email_label: "Adresse e-mail"
+      password_label: "Mot de passe"
+      remember_me_label: "Se souvenir de moi"
+      login_button: "Connexion"

@@ -1,0 +1,18 @@
+es:
+  payments:
+    choose:
+      title: "Elige tu opción de servicio"
+      details: "Detalles del servicio"
+      gear: "Equipo"
+      created_at: "Creado en"
+      prompt: "Elige tu tipo de servicio:"
+      basic_button: "Pagar por reparación básica (1 mes)"
+      premium_button: "Pagar por reparación premium (2 semanas)"
+    cancel:
+      title: "Pago cancelado"
+      message: "El proceso de pago fue cancelado. Puedes intentarlo de nuevo o contactar soporte para obtener más ayuda."
+      back_to_service: "Volver al servicio"
+    success:
+      title: "¡Pago exitoso!"
+      message: "Tu pago se procesó exitosamente."
+      button_to_service_details: "Volver a los servicios"

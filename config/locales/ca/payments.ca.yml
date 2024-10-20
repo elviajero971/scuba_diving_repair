@@ -1,0 +1,18 @@
+ca:
+  payments:
+    choose:
+      title: "Trieu la vostra opció de servei"
+      details: "Detalls del servei"
+      gear: "Equip"
+      created_at: "Creat el"
+      prompt: "Trieu el vostre tipus de servei:"
+      basic_button: "Pagar per la reparació bàsica (1 mes)"
+      premium_button: "Pagar per la reparació premium (2 setmanes)"
+    cancel:
+      title: "Pagament cancel·lat"
+      message: "El procés de pagament ha estat cancel·lat. Pots provar-ho de nou o contactar amb el suport per obtenir ajuda."
+      back_to_service: "Torna al servei"
+    success:
+      title: "Pagament correcte!"
+      message: "El vostre pagament s'ha processat correctament."
+      button_to_service_details: "Torna als serveis"

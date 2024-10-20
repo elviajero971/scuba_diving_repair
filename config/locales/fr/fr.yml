@@ -1,0 +1,18 @@
+fr:
+  activerecord:
+    attributes:
+      service:
+        status:
+          pending: "En attente"
+          not_delivered: "Non livré"
+          delivered: "Livré"
+          ongoing_maintenance: "Maintenance en cours"
+          ready_for_pick_up: "Prêt pour le retrait"
+          completed: "Terminé"
+        service_type:
+          basic: "Basique"
+          premium: "Premium"
+          unknown: "Inconnu"
+        payment_status:
+          not_paid: "Non payé"
+          paid: "Payé"

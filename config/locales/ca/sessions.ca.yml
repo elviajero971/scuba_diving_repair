@@ -1,0 +1,8 @@
+ca:
+  sessions:
+    new:
+      title: "Iniciar sessió"
+      email_label: "Adreça electrònica"
+      password_label: "Contrasenya"
+      remember_me_label: "Recorda'm"
+      login_button: "Iniciar sessió"

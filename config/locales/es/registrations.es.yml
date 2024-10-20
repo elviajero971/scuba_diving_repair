@@ -1,0 +1,22 @@
+es:
+  registrations:
+    new:
+      title: "Regístrate para una cuenta"
+      email_label: "Dirección de correo electrónico"
+      password_label: "Contraseña"
+      password_confirmation_label: "Confirmar contraseña"
+      sign_up_button: "Regístrate"
+      already_account: "¿Ya tienes una cuenta?"
+      sign_in_link: "Iniciar sesión"
+    edit:
+      title: "Editar %{resource_name}"
+      email_label: "Correo electrónico"
+      confirmation_pending: "Esperando confirmación para: %{email}"
+      password_label: "Contraseña"
+      password_hint: "(deje en blanco si no desea cambiarlo)"
+      password_minimum: "%{count} caracteres mínimo"
+      password_confirmation_label: "Confirmar contraseña"
+      current_password_label: "Contraseña actual"
+      current_password_hint: "(necesitamos su contraseña actual para confirmar sus cambios)"
+      update_button: "Actualizar"
+      back_link: "Volver"

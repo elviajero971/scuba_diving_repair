@@ -1,0 +1,20 @@
+<div class="container mx-auto py-8">
+  <h2 class="text-2xl font-bold mb-6"><%= t('user_gears.new.title') %></h2>
+
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <%= form_with model: @user_gear, url: user_gears_path, local: true, class: "space-y-4" do |f| %>
+      <div>
+        <%= f.label :gear_id, t('user_gears.form.gear_label'), class: 'block text-gray-700 font-medium' %>
+        <%= f.collection_select :gear_id, @available_gears, :id, :name, { prompt: t('user_gears.form.gear_prompt') }, class: "block w-full px-4 py-2 mt-1 border rounded-lg" %>
+      </div>
+
+      <div>
+        <%= f.submit t('user_gears.form.submit_button'), class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6 text-center">
+    <%= link_to t('user_gears.new.back_to_list'), user_gears_path, class: "text-blue-500 hover:underline" %>
+  </div>
+</div>

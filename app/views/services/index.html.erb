@@ -2,28 +2,33 @@
   <h1 class="text-3xl font-bold mb-6"><%= t('services.index.title') %></h1>
 
   <div class="flex justify-end mb-4">
-    <%= link_to 'New Service', new_service_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+    <%= link_to t('services.index.create_button'), new_service_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
   </div>
 
   <table class="min-w-full bg-white shadow-md rounded-lg">
     <thead>
     <tr>
-      <th class="py-3 px-6 text-left">Gear</th>
-      <th class="py-3 px-6 text-left">Service Type</th>
-      <th class="py-3 px-6 text-left">Status</th>
-      <th class="py-3 px-6 text-left">Payment</th>
-      <th class="py-3 px-6 text-left">Actions</th>
+      <th class="py-3 px-6 text-left"><%= t('services.index.table.gear') %></th>
+      <th class="py-3 px-6 text-left"><%= t('services.index.table.service_type') %></th>
+      <th class="py-3 px-6 text-left"><%= t('services.index.table.status') %></th>
+      <th class="py-3 px-6 text-left"><%= t('services.index.table.payment.label') %></th>
     </tr>
     </thead>
     <tbody>
     <% @services.each do |service| %>
       <tr class="border-b">
         <td class="py-3 px-6"><%= service.gear.name %></td>
-        <td class="py-3 px-6"><%= service.service_type&.capitalize %></td>
-        <td class="py-3 px-6"><%= service.status.humanize %></td>
-        <td class="py-3 px-6"><%= service.payment_status.humanize %></td>
+        <td class="py-3 px-6"><%= service.translated_service_type %></td>
+        <td class="py-3 px-6"><%= service.translated_status %></td>
         <td class="py-3 px-6">
-          <%= link_to 'View', service_path(service), class: 'text-blue-500 hover:underline' %>
+          <% if service.payment_status == 'paid' %>
+            <%= service.translated_payment_status %>
+          <%  else  %>
+            <div class="flex">
+              <%=  button_to t('services.index.table.payment.payment_button_basic'), service_payments_path(service, product_id: @product_basic.id), method: :post, class: 'text-blue-500 hover:text-blue-700 hover:underline py-2 px-4', data: { turbo: false }  %>
+              <%=  button_to t('services.index.table.payment.payment_button_premium'), service_payments_path(service, product_id: @product_premium.id), method: :post, class: 'text-green-500 hover:text-green-700 hover:underline py-2 px-4', data: { turbo: false }  %>
+            </div>
+          <%  end %>
         </td>
       </tr>
     <% end %>

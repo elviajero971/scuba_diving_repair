@@ -1,0 +1,22 @@
+fr:
+  registrations:
+    new:
+      title: "Inscrivez-vous pour un compte"
+      email_label: "Adresse e-mail"
+      password_label: "Mot de passe"
+      password_confirmation_label: "Confirmez le mot de passe"
+      sign_up_button: "S'inscrire"
+      already_account: "Vous avez déjà un compte?"
+      sign_in_link: "Se connecter"
+    edit:
+      title: "Modifier %{resource_name}"
+      email_label: "E-mail"
+      confirmation_pending: "En attente de confirmation pour : %{email}"
+      password_label: "Mot de passe"
+      password_hint: "(laisser vide si vous ne souhaitez pas le changer)"
+      password_minimum: "%{count} caractères minimum"
+      password_confirmation_label: "Confirmez le mot de passe"
+      current_password_label: "Mot de passe actuel"
+      current_password_hint: "(nous avons besoin de votre mot de passe actuel pour confirmer vos modifications)"
+      update_button: "Mettre à jour"
+      back_link: "Retour"

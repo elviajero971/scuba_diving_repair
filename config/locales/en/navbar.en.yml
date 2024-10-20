@@ -1,0 +1,7 @@
+en:
+  navbar:
+    home: "Home"
+    sign_in: "Sign in"
+    sign_out: "Sign out"
+    sign_up: "Sign up"
+    edit_profile: "Edit profile"

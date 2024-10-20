@@ -1,12 +1,8 @@
 class ServicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_service, only: [:show]
 
   def index
     @services = current_user.services.includes(:gear)
-  end
-
-  def show
     @product_premium = Product.find_by(product_type: :premium)
     @product_basic = Product.find_by(product_type: :basic)
   end
@@ -30,10 +26,6 @@ class ServicesController < ApplicationController
   end
 
   private
-
-  def set_service
-    @service = current_user.services.find(params[:id])
-  end
 
   def service_params
     params.require(:service).permit(:gear_id, :status)

@@ -1,0 +1,7 @@
+ca:
+  navbar:
+    home: "Inici"
+    sign_in: "Iniciar sessió"
+    sign_out: "Tancar sessió"
+    sign_up: "Registra't"
+    edit_profile: "Edita el perfil"

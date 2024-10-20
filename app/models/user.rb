@@ -5,4 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :services, dependent: :destroy
+
+  has_many :user_gears
+  has_many :gears, through: :user_gears
 end

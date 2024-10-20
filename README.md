@@ -96,11 +96,12 @@ RAILS_ENV=production rails server
 ```diff
 + MVP : Implement user registration and authentication
 + MVP : Create booking system with regulator selection
-+ MVP : Admin dashboard for managing bookings
-+ MVP : Implement status tracking for bookings
-- FEATURE : Integrate payment gateway for online payments
++ MVP : Admin dashboard for managing users, payments, services, gears, products
++ FEATURE : Integrate payment gateway for online payments
 - FEATURE : Add notification emails for booking updates
-- FEATURE : Create a mobile application version of the platform
+- FEATURE : Implement delay logic for service status updates
+- FEATURE : Internationalization for multi-language support fr / en / es / ca
+- FEATURE : Implement graphing and analytics for service data with chartkick and groupdate gem
 ```
 
 ## ⚙️ API Setup

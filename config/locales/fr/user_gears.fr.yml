@@ -1,0 +1,23 @@
+fr:
+  user_gears:
+    index:
+      title: "Mes Équipements"
+      user_gear_list: "Vos Équipements"
+      gear_name: "Équipement"
+      brand_name: "Marque"
+      actions: "Actions"
+      remove: "Supprimer"
+      confirm_remove: "Êtes-vous sûr de vouloir supprimer cet équipement ?"
+      add_gear_button: "Ajouter un Équipement"
+    new:
+      title: "Ajouter un Nouvel Équipement"
+      back_to_list: "Retour à Mes Équipements"
+    create:
+      success: "Équipement ajouté avec succès."
+      failure: "Échec de l'ajout de l'équipement."
+    destroy:
+      success: "Équipement supprimé avec succès."
+    form:
+      gear_label: "Sélectionnez l'équipement"
+      gear_prompt: "Choisissez un équipement"
+      submit_button: "Ajouter l'équipement"

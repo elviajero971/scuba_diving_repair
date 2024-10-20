@@ -1,0 +1,23 @@
+ca:
+  user_gears:
+    index:
+      title: "Els Meus Equips"
+      user_gear_list: "Els Teus Equips"
+      gear_name: "Equip"
+      brand_name: "Marca"
+      actions: "Accions"
+      remove: "Eliminar"
+      confirm_remove: "Estàs segur que vols eliminar aquest equip?"
+      add_gear_button: "Afegir un Equip"
+    new:
+      title: "Afegir un Nou Equip"
+      back_to_list: "Tornar als Meus Equips"
+    create:
+      success: "Equip afegit amb èxit."
+      failure: "Error en afegir l'equip."
+    destroy:
+      success: "Equip eliminat amb èxit."
+    form:
+      gear_label: "Selecciona l'equip"
+      gear_prompt: "Tria un equip"
+      submit_button: "Afegir equip"

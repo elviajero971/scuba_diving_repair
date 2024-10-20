@@ -1,0 +1,8 @@
+en:
+  sessions:
+    new:
+      title: "Log in"
+      email_label: "Email address"
+      password_label: "Password"
+      remember_me_label: "Remember me"
+      login_button: "Log in"

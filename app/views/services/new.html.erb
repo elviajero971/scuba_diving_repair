@@ -1,22 +1,22 @@
 <div class="container mx-auto py-8" data-controller="brand">
-  <h1 class="text-3xl font-bold mb-6">New Service</h1>
+  <h1 class="text-3xl font-bold mb-6"><%= t('services.new.title') %></h1>
 
   <%= form_for @service, url: services_path, class: "bg-white shadow-md rounded-lg p-6" do |f| %>
 
     <div class="mb-4">
-      <%= f.label :brand_id, "Select Brand", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= select_tag :brand_id, options_from_collection_for_select(@brands, :id, :name), prompt: "Choose a brand", data: { action: "change->brand#loadGears", brand_target: "brand" }, class: "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" %>
+      <%= f.label :brand_id, t('services.new.brand.label'), class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= select_tag :brand_id, options_from_collection_for_select(@brands, :id, :name), prompt: t('services.new.brand.prompt'), data: { action: "change->brand#loadGears", brand_target: "brand" }, class: "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" %>
     </div>
 
     <div class="mb-4">
-      <%= f.label :gear_id, "Select Gear", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= f.label :gear_id, t('services.new.gear.label'), class: "block text-gray-700 text-sm font-bold mb-2" %>
       <%= f.select :gear_id, options_for_select([], ''), {}, data: { brand_target: "gear" }, class: "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" %>
     </div>
 
     <%= f.hidden_field :status, value: :pending %>
 
     <div class="mt-6">
-      <%= f.submit "Create Service", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+      <%= f.submit t('services.new.submit_button'), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
     </div>
   <% end %>
 </div>

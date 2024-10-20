@@ -1,0 +1,21 @@
+fr:
+  services:
+    index:
+      title: "Liste des services"
+      create_button: "Créer un service"
+      table:
+        gear: "Équipement"
+        service_type: "Type de service"
+        status: "Statut"
+        payment:
+          label: "Paiement"
+          payment_button_premium: "Paiement Premium"
+          payment_button_basic: "Paiement Basique"
+    new:
+      title: "Créer un service"
+      brand:
+        label: "Sélectionner une marque"
+        prompt: "Choisir une marque"
+      gear:
+        label: "Sélectionner un équipement"
+      submit_button: "Créer le service"

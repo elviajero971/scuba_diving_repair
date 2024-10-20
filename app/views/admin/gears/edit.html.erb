@@ -1,0 +1,24 @@
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-bold mb-4"><%= t('admin.gears.edit.title') %></h2>
+
+  <%= form_with model: @gear, url: admin_gear_path(@gear), method: :patch, local: true, class: "space-y-4" do |f| %>
+    <div>
+      <%= f.label :name, t('admin.gears.form.name_label'), class: 'block text-gray-700 font-medium' %>
+      <%= f.text_field :name, class: 'w-full px-4 py-2 mt-1 border rounded-lg' %>
+    </div>
+
+    <div>
+      <%= f.label :brand_id, t('admin.gears.form.brand_label'), class: 'block text-gray-700 font-medium' %>
+      <%= f.collection_select :brand_id, @brands, :id, :name, {}, class: 'w-full px-4 py-2 mt-1 border rounded-lg' %>
+    </div>
+
+    <div>
+      <%= f.label :gear_type, t('admin.gears.form.type_label'), class: 'block text-gray-700 font-medium' %>
+      <%= f.select :gear_type, Gear.gear_types.keys, {}, class: 'w-full px-4 py-2 mt-1 border rounded-lg' %>
+    </div>
+
+    <div class="text-right">
+      <%= f.submit t('admin.gears.form.update_button'), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+</div>

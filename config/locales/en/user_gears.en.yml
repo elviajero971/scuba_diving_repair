@@ -1,0 +1,23 @@
+en:
+  user_gears:
+    index:
+      title: "My Gears"
+      user_gear_list: "Your Gears"
+      gear_name: "Gear"
+      brand_name: "Brand"
+      actions: "Actions"
+      remove: "Remove"
+      confirm_remove: "Are you sure you want to remove this gear?"
+      add_gear_button: "Add a Gear"
+    new:
+      title: "Add a New Gear"
+      back_to_list: "Back to My Gears"
+    create:
+      success: "Gear added successfully."
+      failure: "Failed to add gear."
+    destroy:
+      success: "Gear removed successfully."
+    form:
+      gear_label: "Select Gear"
+      gear_prompt: "Choose a gear"
+      submit_button: "Add Gear"

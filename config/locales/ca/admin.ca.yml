@@ -1,0 +1,59 @@
+ca:
+  admin:
+    sidebar:
+      dashboard: "Tauler de control"
+      gears: "Equips"
+      brands: "Marques"
+      services: "Serveis"
+    brands:
+      index:
+        title: "Marques"
+        name_column: "Nom"
+        actions_column: "Accions"
+        create_button: "Crear marca"
+        edit: "Editar"
+        destroy: "Eliminar"
+        confirm_destroy: "Estàs segur que vols eliminar aquesta marca?"
+      new:
+        title: "Nova Marca"
+      create:
+        success: "Marca creada amb èxit."
+      edit:
+        title: "Editar Marca"
+      update:
+        success: "Marca actualitzada amb èxit."
+      form:
+        name_label: "Nom de la marca"
+        create_button: "Crear marca"
+        update_button: "Actualitzar marca"
+      destroy:
+        has_gears_warning: "No es pot eliminar aquesta marca perquè hi ha equips associats a ella."
+        success: "Marca eliminada amb èxit."
+    gears:
+      index:
+        title: "Equips"
+        name_column: "Nom"
+        brand_column: "Marca"
+        type_column: "Tipus"
+        actions_column: "Accions"
+        create_button: "Crear equip"
+        edit: "Editar"
+        destroy: "Eliminar"
+        confirm_destroy: "Estàs segur que vols eliminar aquest equip?"
+      new:
+        title: "Nou Equip"
+      edit:
+        title: "Editar Equip"
+      form:
+        name_label: "Nom de l'equip"
+        brand_label: "Marca"
+        type_label: "Tipus d'equip"
+        create_button: "Crear equip"
+        update_button: "Actualitzar equip"
+      create:
+        success: "Equip creat amb èxit."
+      update:
+        success: "Equip actualitzat amb èxit."
+      destroy:
+        success: "Equip eliminat amb èxit."
+        has_services_warning: "No es pot eliminar aquest equip perquè hi ha serveis associats."

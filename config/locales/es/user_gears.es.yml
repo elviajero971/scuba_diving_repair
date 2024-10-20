@@ -1,0 +1,23 @@
+es:
+  user_gears:
+    index:
+      title: "Mis Equipos"
+      user_gear_list: "Tus Equipos"
+      gear_name: "Equipo"
+      brand_name: "Marca"
+      actions: "Acciones"
+      remove: "Eliminar"
+      confirm_remove: "¿Estás seguro de que quieres eliminar este equipo?"
+      add_gear_button: "Añadir un Equipo"
+    new:
+      title: "Añadir un Nuevo Equipo"
+      back_to_list: "Volver a Mis Equipos"
+    create:
+      success: "Equipo añadido con éxito."
+      failure: "Error al añadir el equipo."
+    destroy:
+      success: "Equipo eliminado con éxito."
+    form:
+      gear_label: "Seleccionar Equipo"
+      gear_prompt: "Elige un equipo"
+      submit_button: "Añadir equipo"

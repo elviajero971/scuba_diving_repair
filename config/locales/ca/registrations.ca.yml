@@ -1,0 +1,22 @@
+ca:
+  registrations:
+    new:
+      title: "Registra't per un compte"
+      email_label: "Adreça de correu electrònic"
+      password_label: "Contrasenya"
+      password_confirmation_label: "Confirma la contrasenya"
+      sign_up_button: "Registra't"
+      already_account: "Ja tens un compte?"
+      sign_in_link: "Iniciar sessió"
+    edit:
+      title: "Edita %{resource_name}"
+      email_label: "Correu electrònic"
+      confirmation_pending: "Esperant confirmació per a: %{email}"
+      password_label: "Contrasenya"
+      password_hint: "(deixa en blanc si no vols canviar-ho)"
+      password_minimum: "%{count} caràcters mínims"
+      password_confirmation_label: "Confirma la contrasenya"
+      current_password_label: "Contrasenya actual"
+      current_password_hint: "(necessitem la teva contrasenya actual per confirmar els canvis)"
+      update_button: "Actualitza"
+      back_link: "Torna"

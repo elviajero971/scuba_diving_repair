@@ -1,0 +1,24 @@
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-bold mb-4"><%= t('payments.index.title') %></h2>
+
+  <table class="min-w-full bg-white">
+    <thead>
+    <tr>
+      <th class="text-start py-2 px-4 border-b"><%= t('payments.index.service_column') %></th>
+      <th class="text-start py-2 px-4 border-b"><%= t('payments.index.amount_column') %></th>
+      <th class="text-start py-2 px-4 border-b"><%= t('payments.index.status_column') %></th>
+      <th class="text-start py-2 px-4 border-b"><%= t('payments.index.date_column') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td class="text-start py-2 px-4 border-b"><%= payment.service.id %></td>
+        <td class="text-start py-2 px-4 border-b"><%= number_to_currency(payment.amount) %></td>
+        <td class="text-start py-2 px-4 border-b"><%= payment.status %></td>
+        <td class="text-start py-2 px-4 border-b"><%= l(payment.created_at, format: :short) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

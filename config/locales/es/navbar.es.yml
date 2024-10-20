@@ -1,0 +1,7 @@
+es:
+  navbar:
+    home: "Inicio"
+    sign_in: "Iniciar sesión"
+    sign_out: "Cerrar sesión"
+    sign_up: "Registrarse"
+    edit_profile: "Editar perfil"

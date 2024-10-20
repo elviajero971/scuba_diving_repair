@@ -1,0 +1,18 @@
+en:
+  payments:
+    choose:
+      title: "Choose Your Service Option"
+      details: "Service Details"
+      gear: "Gear"
+      created_at: "Created At"
+      prompt: "Choose your service type:"
+      basic_button: "Pay for Basic Repair (1 month)"
+      premium_button: "Pay for Premium Repair (2 weeks)"
+    cancel:
+      title: "Payment Canceled"
+      message: "Your payment process was canceled. You can try again or contact support for further assistance."
+      back_to_service: "Back to Service"
+    success:
+      title: "Payment Successful!"
+      message: "Your payment was successfully processed."
+      button_to_service_details: "Back to Services"

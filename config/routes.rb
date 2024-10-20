@@ -7,21 +7,21 @@ Rails.application.routes.draw do
       get 'choose_payment', to: 'payments#choose_payment', as: 'choose_payment'
     end
 
+    resources :user_gears, only: [:index, :new, :create, :destroy]
+
     post '/webhooks/stripe', to: 'webhooks#stripe'
 
     get 'gears_for_brand/:brand_id', to: 'gears#for_brand', as: 'gears_for_brand'
     devise_for :users
-    # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-    # Defines the root path route ("/")
-
-    root to: 'services#index'
 
     namespace :admin do
       resources :brands
       resources :gears
-      resources :services
+      resources :services, only: [:index, :show, :update]
+      resources :payments, only: [:index]
       root to: 'dashboard#index'
     end
+
+    root to: 'services#index'
   end
 end

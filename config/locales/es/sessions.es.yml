@@ -1,0 +1,8 @@
+es:
+  sessions:
+    new:
+      title: "Iniciar sesión"
+      email_label: "Dirección de correo electrónico"
+      password_label: "Contraseña"
+      remember_me_label: "Recuérdame"
+      login_button: "Iniciar sesión"

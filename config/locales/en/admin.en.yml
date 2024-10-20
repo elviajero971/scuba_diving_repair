@@ -1,0 +1,59 @@
+en:
+  admin:
+    sidebar:
+      dashboard: "Dashboard"
+      gears: "Gears"
+      brands: "Brands"
+      services: "Services"
+    brands:
+      index:
+        title: "Brands"
+        name_column: "Name"
+        actions_column: "Actions"
+        create_button: "Create Brand"
+        edit: "Edit"
+        destroy: "Delete"
+        confirm_destroy: "Are you sure you want to delete this brand?"
+      new:
+        title: "New Brand"
+      create:
+        success: "Brand created successfully."
+      edit:
+        title: "Edit Brand"
+      update:
+        success: "Brand updated successfully."
+      form:
+        name_label: "Brand Name"
+        create_button: "Create Brand"
+        update_button: "Update Brand"
+      destroy:
+        has_gears_warning: "Cannot delete this brand because there are gears associated with it."
+        success: "Brand deleted successfully."
+    gears:
+      index:
+        title: "Gears"
+        name_column: "Name"
+        brand_column: "Brand"
+        type_column: "Type"
+        actions_column: "Actions"
+        create_button: "Create Gear"
+        edit: "Edit"
+        destroy: "Delete"
+        confirm_destroy: "Are you sure you want to delete this gear?"
+      new:
+        title: "New Gear"
+      edit:
+        title: "Edit Gear"
+      form:
+        name_label: "Gear Name"
+        brand_label: "Brand"
+        type_label: "Gear Type"
+        create_button: "Create Gear"
+        update_button: "Update Gear"
+      create:
+        success: "Gear created successfully."
+      update:
+        success: "Gear updated successfully."
+      destroy:
+        success: "Gear deleted successfully."
+        has_services_warning: "Cannot delete this gear because there are services associated with it."
