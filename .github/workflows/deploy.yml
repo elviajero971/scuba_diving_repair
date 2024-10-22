@@ -31,6 +31,49 @@ jobs:
            SECRET_KEY_BASE='$SECRET_KEY_BASE' \
            bash -s" << 'EOF'
 
+            # Ensure RVM is sourced
+            if [ -s "$HOME/.rvm/scripts/rvm" ]; then
+              echo "RVM found. Sourcing RVM..."
+              source "$HOME/.rvm/scripts/rvm"
+            elif [ -s "/etc/profile.d/rvm.sh" ]; then
+              echo "RVM system-wide installation found. Sourcing RVM..."
+              source /etc/profile.d/rvm.sh
+            else
+              echo "RVM not found. Exiting..."
+              exit 1
+            fi
+
+            # Display the currently installed RVM rubies
+            echo "Displaying installed rubies:"
+            rvm list
+
+            # Ensure Ruby 3.2.0 is installed and in use
+            if ! rvm list rubies | grep "ruby-3.2.0" &> /dev/null; then
+              echo "Ruby 3.2.0 not found. Exiting..."
+              exit 1
+            else
+              echo "Ruby 3.2.0 found. Switching to Ruby 3.2.0..."
+              rvm use 3.2.0 --default || { echo "Failed to switch to Ruby 3.2.0. Exiting..."; exit 1; }
+            fi
+
+            # Verify the correct Ruby version is being used
+            echo "Checking Ruby version..."
+            ruby_version=$(ruby -v)
+            if [[ $ruby_version == *"3.2.0"* ]]; then
+              echo "Using Ruby 3.2.0: $ruby_version"
+            else
+              echo "Ruby version mismatch. Exiting..."
+              exit 1
+            fi
+
+            # Upgrade RubyGems
+            echo "Upgrading RubyGems..."
+            gem update --system 3.2.3 || { echo "Failed to update RubyGems. Exiting..."; exit 1; }
+
+            # Install bundler
+            echo "Installing Bundler..."
+            gem install bundler || { echo "Failed to install Bundler. Exiting..."; exit 1; }
+
             # Remove the old directory if it exists
             if [ -d "/var/www/html/scubadiving" ]; then
               echo "Removing old directory..."
@@ -59,21 +102,14 @@ jobs:
             echo "Checking all ENV variables..."
             env
 
-            # Define the directory where your Rails app is deployed
-            APP_DIR="/var/www/html/scubadiving/"
-
-            # Define the path to the secure .env.production file
+            # Copy the secure .env.production file to the Rails app directory
             SECURE_ENV_FILE="/var/app_credentials/scubadiving/.env.production"
-
-            # Copy the secure .env.production file to the app folder
             echo "Copying the secure .env.production file to the Rails app directory..."
-            sudo cp $SECURE_ENV_FILE $APP_DIR || { echo "Failed to copy the .env.production file"; exit 1; }
-          
-            bundle config set force_ruby_platform true
+            sudo cp $SECURE_ENV_FILE /var/www/html/scubadiving || { echo "Failed to copy the .env.production file"; exit 1; }
 
             echo "Running bundle install..."
-            bundle install
-          
+            bundle install || { echo "Bundle install failed. Exiting..."; exit 1; }
+
             # Run database migrations
             echo "Running database migrations..."
             RAILS_ENV=production bundle exec rake db:migrate || { echo "Database migration failed"; exit 1; }
