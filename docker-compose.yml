@@ -4,6 +4,8 @@ services:
   # Rails app service
   app:
     build: .
+    ports:
+      - "80:80"
     environment:
       - RAILS_ENV=production
       - DATABASE_HOST=db
