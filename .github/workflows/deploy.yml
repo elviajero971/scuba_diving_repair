@@ -50,7 +50,7 @@ jobs:
             # Install bundler if not installed
             if ! gem spec bundler > /dev/null 2>&1; then
               echo "Installing bundler..."
-              sudo gem install bundler
+              sudo gem install bundler -v 2.3.27 || { echo "Failed to install bundler"; exit 1; }
             fi
 
             # Export the secret_key_base
