@@ -49,7 +49,7 @@ jobs:
             # Remove the old app if it exists
             if [ -d "/var/www/html/scubadiving" ]; then
               echo "Removing old directory..."
-              rm -rf /var/www/html/scubadiving
+              sudo rm -rf /var/www/html/scubadiving
             fi
 
             # Clone the repository
