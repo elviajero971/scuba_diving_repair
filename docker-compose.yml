@@ -4,22 +4,25 @@ services:
   # Rails app service
   app:
     build: .
-    ports:
-      - "80:80"  # Exposing port 80 for Apache
+    environment:
+      - RAILS_ENV=production
+      - DATABASE_HOST=db
     env_file:
-      - .env.production
+      - /var/app_credentials/scubadiving/.env.production
     depends_on:
       - db
+    volumes:
+      - ".:/app" # Ensures the app code is mounted in the container
 
   # PostgreSQL service
   db:
     image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${SCUBADIVING_APP_DATABASE_NAME}
       POSTGRES_USER: ${SCUBADIVING_APP_DATABASE_USER}
       POSTGRES_PASSWORD: ${SCUBADIVING_APP_DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:

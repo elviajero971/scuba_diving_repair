@@ -1,5 +1,5 @@
 # Base image: Official Ruby image with a specific version
-FROM ruby:3.2
+FROM ruby:3.2.0
 
 # Install dependencies including Apache, Passenger, NodeJS, PostgreSQL client, and Yarn
 RUN apt-get update -qq && apt-get install -y \

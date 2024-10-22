@@ -8,21 +8,17 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Rails App to Raspberry Pi using Docker and Passenger
+    name: Deploy Rails App to Raspberry Pi using Docker (without Apache)
     runs-on: ubuntu-latest
 
     steps:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
-      - name: Deploy to Raspberry Pi with Docker and Passenger
+      - name: Deploy to Raspberry Pi
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
-          SCUBADIVING_APP_DATABASE_NAME: ${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
-          SCUBADIVING_APP_DATABASE_USER: ${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
-          SCUBADIVING_APP_DATABASE_PASSWORD: ${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
-          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: |
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "bash -s" << 'EOF'
@@ -54,21 +50,10 @@ jobs:
             # Change to the app directory
             cd /var/www/html/scubadiving
 
-            # Set up environment variables
-            echo "Setting up environment variables..."
-            echo 'SCUBADIVING_APP_DATABASE_NAME=${SCUBADIVING_APP_DATABASE_NAME}' > .env.production
-            echo 'SCUBADIVING_APP_DATABASE_USER=${SCUBADIVING_APP_DATABASE_USER}' >> .env.production
-            echo 'SCUBADIVING_APP_DATABASE_PASSWORD=${SCUBADIVING_APP_DATABASE_PASSWORD}' >> .env.production
-            echo 'SECRET_KEY_BASE=${SECRET_KEY_BASE}' >> .env.production
-
-            # Dockerfile Build process
-            echo "Building Docker images..."
+            # Build and start Docker containers
+            echo "Building Docker images and starting containers..."
             docker-compose down || true
-            docker-compose build
-
-            # Start the app and database using Docker Compose
-            echo "Starting services with Docker Compose..."
-            docker-compose up -d
+            docker-compose up -d --build
 
             echo "Deployment complete."
           EOF
