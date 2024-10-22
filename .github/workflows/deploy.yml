@@ -57,24 +57,24 @@ jobs:
             # Create .env file with the environment variables
             echo "Creating .env file..."
             cat <<EOT > /var/www/html/scubadiving/.env
-              SCUBADIVING_APP_DATABASE_NAME=${SCUBADIVING_APP_DATABASE_NAME}
-              SCUBADIVING_APP_DATABASE_USER=${SCUBADIVING_APP_DATABASE_USER}
-              SCUBADIVING_APP_DATABASE_PASSWORD=${SCUBADIVING_APP_DATABASE_PASSWORD}
-              SECRET_KEY_BASE=${SECRET_KEY_BASE}
-            EOT
+  SCUBADIVING_APP_DATABASE_NAME=${SCUBADIVING_APP_DATABASE_NAME}
+  SCUBADIVING_APP_DATABASE_USER=${SCUBADIVING_APP_DATABASE_USER}
+  SCUBADIVING_APP_DATABASE_PASSWORD=${SCUBADIVING_APP_DATABASE_PASSWORD}
+  SECRET_KEY_BASE=${SECRET_KEY_BASE}
+  EOT
   
-            # Ensure the .env file is created successfully
-            if [ ! -f /var/www/html/scubadiving/.env ]; then
-            echo ".env file not created. Exiting."
-            exit 1
-            else
-            echo ".env file created successfully."
-            fi
-            
-            # Build and start Docker containers with the generated .env file
-            echo "Building Docker images and starting containers..."
-            sudo docker-compose down || true
-            sudo docker-compose up -d --build || { echo "Error: Docker build failed"; exit 1; }
-            
-            echo "Deployment complete."
-          EOF
+  # Ensure the .env file is created successfully
+  if [ ! -f /var/www/html/scubadiving/.env ]; then
+  echo ".env file not created. Exiting."
+  exit 1
+  else
+  echo ".env file created successfully."
+  fi
+  
+  # Build and start Docker containers with the generated .env file
+  echo "Building Docker images and starting containers..."
+  sudo docker-compose down || true
+sudo docker-compose up -d --build || { echo "Error: Docker build failed"; exit 1; }
+  
+  echo "Deployment complete."
+  EOF
