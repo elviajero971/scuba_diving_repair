@@ -29,9 +29,6 @@ RUN bundle exec rake assets:precompile
 # Enable Passenger and Apache modules
 RUN a2enmod passenger
 
-# Copy the Apache virtual host configuration
-COPY docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
-
 # Expose port 80 to make Apache accessible
 EXPOSE 80
 
