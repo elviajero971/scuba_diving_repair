@@ -19,6 +19,9 @@ jobs:
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
+          SCUBADIVING_APP_DATABASE_NAME: ${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
+          SCUBADIVING_APP_DATABASE_USER: ${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
+          SCUBADIVING_APP_DATABASE_PASSWORD: ${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
         run: |
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP << 'EOF'
             # Check if PostgreSQL is installed and running
