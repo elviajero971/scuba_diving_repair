@@ -22,8 +22,14 @@ jobs:
           SCUBADIVING_APP_DATABASE_NAME: ${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
           SCUBADIVING_APP_DATABASE_USER: ${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
           SCUBADIVING_APP_DATABASE_PASSWORD: ${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: |
-          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP << 'EOF'
+          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
+          "SCUBADIVING_APP_DATABASE_NAME='$SCUBADIVING_APP_DATABASE_NAME' \
+           SCUBADIVING_APP_DATABASE_USER='$SCUBADIVING_APP_DATABASE_USER' \
+           SCUBADIVING_APP_DATABASE_PASSWORD='$SCUBADIVING_APP_DATABASE_PASSWORD' \
+           SECRET_KEY_BASE='$SECRET_KEY_BASE' \
+           bash -s" << 'EOF'
             # Check if PostgreSQL is installed and running
             echo "Checking if PostgreSQL is installed and running..."
             if ! systemctl is-active --quiet postgresql; then
@@ -33,8 +39,7 @@ jobs:
               echo "PostgreSQL is running."
             fi
           
-            # check if env variables are set
-          
+            # Check if env variables are set
             echo "Checking if env variables are set..."
             if [ -z "$SCUBADIVING_APP_DATABASE_NAME" ]; then
               echo "SCUBADIVING_APP_DATABASE_NAME is not set"; exit 1;
@@ -83,14 +88,14 @@ jobs:
 
             # Export the secret_key_base
             echo "Exporting SECRET_KEY_BASE..."
-            export SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
+            export SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 
             # Export the database credentials
             echo "Exporting database credentials..."
-            export SCUBADIVING_APP_DATABASE_NAME=${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
-            export SCUBADIVING_APP_DATABASE_USER=${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
-            export SCUBADIVING_APP_DATABASE_PASSWORD=${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
+            export SCUBADIVING_APP_DATABASE_NAME=$SCUBADIVING_APP_DATABASE_NAME
+            export SCUBADIVING_APP_DATABASE_USER=$SCUBADIVING_APP_DATABASE_USER
+            export SCUBADIVING_APP_DATABASE_PASSWORD=$SCUBADIVING_APP_DATABASE_PASSWORD
             export RAILS_ENV=production
 
             # print all ENV variables
@@ -125,9 +130,9 @@ jobs:
             sudo systemctl restart apache2 || { echo "Failed to restart Apache"; exit 1; }
 
             cd /var/www/html/scubadiving
-            export SCUBADIVING_APP_DATABASE_NAME=${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
-            export SCUBADIVING_APP_DATABASE_USER=${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
-            export SCUBADIVING_APP_DATABASE_PASSWORD=${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
+            export SCUBADIVING_APP_DATABASE_NAME=$SCUBADIVING_APP_DATABASE_NAME
+            export SCUBADIVING_APP_DATABASE_USER=$SCUBADIVING_APP_DATABASE_USER
+            export SCUBADIVING_APP_DATABASE_PASSWORD=$SCUBADIVING_APP_DATABASE_PASSWORD
             export RAILS_ENV=production
 
             echo "Checking all ENV variables..."
