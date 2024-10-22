@@ -19,6 +19,10 @@ jobs:
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
+          SCUBADIVING_APP_DATABASE_NAME: ${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
+          SCUBADIVING_APP_DATABASE_USER: ${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
+          SCUBADIVING_APP_DATABASE_PASSWORD: ${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: |
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "bash -s" << 'EOF'
@@ -50,9 +54,15 @@ jobs:
             # Change to the app directory
             cd /var/www/html/scubadiving
 
-            # Build and start Docker containers
-            echo "Building Docker images and starting containers..."
+            # Build and start Docker containers with environment variables passed directly
+            echo "Building Docker images and starting containers with env variables..."
             sudo docker-compose down || true
+
+            # Pass environment variables to docker-compose
+            SCUBADIVING_APP_DATABASE_NAME=${SCUBADIVING_APP_DATABASE_NAME} \
+            SCUBADIVING_APP_DATABASE_USER=${SCUBADIVING_APP_DATABASE_USER} \
+            SCUBADIVING_APP_DATABASE_PASSWORD=${SCUBADIVING_APP_DATABASE_PASSWORD} \
+            SECRET_KEY_BASE=${SECRET_KEY_BASE} \
             sudo docker-compose up -d --build || { echo "Error: Docker build failed"; exit 1; }
 
             echo "Deployment complete."
