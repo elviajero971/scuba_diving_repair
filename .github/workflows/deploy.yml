@@ -8,14 +8,14 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Rails App to Raspberry Pi using Docker
+    name: Deploy Rails App to Raspberry Pi using Docker and Passenger
     runs-on: ubuntu-latest
 
     steps:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
-      - name: Deploy to Raspberry Pi with Docker
+      - name: Deploy to Raspberry Pi with Docker and Passenger
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}

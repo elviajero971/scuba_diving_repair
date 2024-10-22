@@ -4,18 +4,10 @@ services:
   # Rails app service
   app:
     build: .
-    command: bundle exec puma -C config/puma.rb
-    volumes:
-      - ".:/app"
     ports:
-      - "3000:3000"
-    environment:
-      - RAILS_ENV=production
-      - DATABASE_HOST=db
-      - DATABASE_NAME=${SCUBADIVING_APP_DATABASE_NAME}
-      - DATABASE_USER=${SCUBADIVING_APP_DATABASE_USER}
-      - DATABASE_PASSWORD=${SCUBADIVING_APP_DATABASE_PASSWORD}
-      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - "80:80"  # Exposing port 80 for Apache
+    env_file:
+      - .env.production
     depends_on:
       - db
 
