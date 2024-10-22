@@ -28,9 +28,6 @@ RUN gem install bundler && bundle install --without development test
 # Copy the Rails app source code to the container
 COPY . .
 
-# Precompile assets
-RUN bundle exec rake assets:precompile
-
 # Enable Passenger and Apache modules
 RUN a2enmod passenger
 
