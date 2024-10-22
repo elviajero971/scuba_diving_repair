@@ -27,17 +27,32 @@ jobs:
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "bash -s" << EOF
 
-            # Check environment variables and log them
-            echo "SCUBADIVING_APP_DATABASE_NAME: $SCUBADIVING_APP_DATABASE_NAME"
-            echo "SCUBADIVING_APP_DATABASE_USER: $SCUBADIVING_APP_DATABASE_USER"
-            echo "SCUBADIVING_APP_DATABASE_PASSWORD: $SCUBADIVING_APP_DATABASE_PASSWORD"
-            echo "SECRET_KEY_BASE: $SECRET_KEY_BASE"
-
-            # If any variable is empty, log an error
-            if [ -z "$SCUBADIVING_APP_DATABASE_NAME" ] || [ -z "$SCUBADIVING_APP_DATABASE_USER" ] || [ -z "$SCUBADIVING_APP_DATABASE_PASSWORD" ] || [ -z "$SECRET_KEY_BASE" ]; then
-              echo "Error: One or more environment variables are missing. Exiting."
-              exit 1
+            # Ensure Docker is installed
+            if ! [ -x "$(command -v docker)" ]; then
+              echo "Docker is not installed. Installing Docker..."
+              curl -fsSL https://get.docker.com -o get-docker.sh
+              sh get-docker.sh
             fi
+
+            # Ensure Docker Compose is installed
+            if ! [ -x "$(command -v docker-compose)" ]; then
+              echo "Docker Compose is not installed. Installing Docker Compose..."
+              sudo curl -L "https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-armv7" -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
+            fi
+
+            # Remove the old app if it exists
+            if [ -d "/var/www/html/scubadiving" ]; then
+              echo "Removing old directory..."
+              rm -rf /var/www/html/scubadiving
+            fi
+
+            # Clone the repository
+            echo "Cloning repository..."
+            git clone git@github.com:elviajero971/scuba_diving_repair.git /var/www/html/scubadiving
+
+            # Change to the app directory
+            cd /var/www/html/scubadiving
 
             # Create .env file with the environment variables
             echo "SCUBADIVING_APP_DATABASE_NAME=$SCUBADIVING_APP_DATABASE_NAME" >> /var/www/html/scubadiving/.env
