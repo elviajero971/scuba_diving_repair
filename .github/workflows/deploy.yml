@@ -52,8 +52,8 @@ jobs:
 
             # Build and start Docker containers
             echo "Building Docker images and starting containers..."
-            docker-compose down || true
-            docker-compose up -d --build
+            sudo docker-compose down || true
+            sudo docker-compose up -d --build
 
             echo "Deployment complete."
           EOF
