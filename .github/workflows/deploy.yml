@@ -25,7 +25,7 @@ jobs:
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: |
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
-          "bash -s" << "EOF"
+          "bash -s" << EOF
 
             # Check environment variables and log them
             echo "SCUBADIVING_APP_DATABASE_NAME: $SCUBADIVING_APP_DATABASE_NAME"
