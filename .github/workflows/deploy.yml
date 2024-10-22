@@ -50,10 +50,19 @@ jobs:
             # Change to the app directory
             cd /var/www/html/scubadiving
 
+            # Ensure that the .env.production file is copied correctly
+            if [ -f /var/app_credentials/scubadiving/.env.production ]; then
+              echo "Copying .env.production file to the app directory..."
+              cp /var/app_credentials/scubadiving/.env.production /var/www/html/scubadiving/.env
+            else
+              echo "Error: /var/app_credentials/scubadiving/.env.production file not found"
+              exit 1
+            fi
+
             # Build and start Docker containers
             echo "Building Docker images and starting containers..."
             sudo docker-compose down || true
-            sudo docker-compose up -d --build
+            sudo docker-compose up -d --build || { echo "Error: Docker build failed"; exit 1; }
 
             echo "Deployment complete."
           EOF

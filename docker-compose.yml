@@ -8,11 +8,11 @@ services:
       - RAILS_ENV=production
       - DATABASE_HOST=db
     env_file:
-      - path: /var/app_credentials/scubadiving/.env.production
+      - /app/.env  # Reference the new .env file inside the container
     depends_on:
       - db
     volumes:
-      - ".:/app"
+      - ".:/app"  # Mount the app directory
 
   # PostgreSQL service
   db:
@@ -20,7 +20,7 @@ services:
     environment:
       POSTGRES_DB: ${SCUBADIVING_APP_DATABASE_NAME}
       POSTGRES_USER: ${SCUBADIVING_APP_DATABASE_USER}
-      POSTGRES_PASSWORD: ${SCUBADIVING_APP_DATABASE_PASSWORD}   # Set password
+      POSTGRES_PASSWORD: ${SCUBADIVING_APP_DATABASE_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
