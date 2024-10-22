@@ -74,6 +74,9 @@ jobs:
             # Copy the secure .env.production file to the Rails app directory
 
             bundle config set force_ruby_platform true
+          
+            # move to the app directory
+            cd /var/www/html/scubadiving
 
             echo "Running bundle install..."
             bundle install
