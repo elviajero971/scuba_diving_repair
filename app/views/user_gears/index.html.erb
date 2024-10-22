@@ -13,16 +13,20 @@
     <table class="min-w-full bg-white">
       <thead>
       <tr>
-        <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.gear_name') %></th>
+        <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.gear_type_name') %></th>
         <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.brand_name') %></th>
+        <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.gear_name') %></th>
+        <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.last_service_date') %></th>
         <th class="text-left py-2 px-4 border-b"><%= t('user_gears.index.actions') %></th>
       </tr>
       </thead>
       <tbody>
       <% @user_gears.each do |user_gear| %>
         <tr>
-          <td class="py-2 px-4 border-b"><%= user_gear.gear.name %></td>
+          <td class="py-2 px-4 border-b"><%= user_gear.gear.translated_gear_type %></td>
           <td class="py-2 px-4 border-b"><%= user_gear.gear.brand.name %></td>
+          <td class="py-2 px-4 border-b"><%= user_gear.gear.name %></td>
+          <td class="py-2 px-4 border-b"><%= l(user_gear.last_service_date, format: :long) %></td>
           <td class="py-2 px-4 border-b">
             <%= link_to t('user_gears.index.remove'), user_gear_path(user_gear), method: :delete, data: { turbo_confirm: t('user_gears.index.confirm_remove') }, class: "text-red-500 hover:underline" %>
           </td>

@@ -1,6 +1,9 @@
 en:
   navbar:
     home: "Home"
+    my_gears: "Gears"
+    my_services: "Services"
+    my_payments: "Payments"
     sign_in: "Sign in"
     sign_out: "Sign out"
     sign_up: "Sign up"

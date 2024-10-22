@@ -5,6 +5,7 @@
 puts 'Cleaning the database...'
 Payment.destroy_all
 Service.destroy_all
+UserGear.destroy_all
 User.destroy_all
 Gear.destroy_all
 Brand.destroy_all
@@ -27,7 +28,7 @@ brands = Brand.create!(
 )
 
 # Create gears
-puts 'Creating gears...'
+puts 'Creating gears regulators...'
 gears = Gear.create!(
   [
    # Aqua Lung Regulators
@@ -64,6 +65,44 @@ gears = Gear.create!(
    { name: 'MTX-R', brand: brands[4], gear_type: :regulator },
    { name: 'XTX40', brand: brands[4], gear_type: :regulator },
    { name: 'ATX40', brand: brands[4], gear_type: :regulator }
+  ]
+)
+
+# Create gears
+puts 'Creating gears bcds...'
+
+gears = Gear.create!(
+  [
+    # Aqua Lung BCDs
+    { name: 'Pro HD', brand: brands[0], gear_type: :bcd },
+    { name: 'Outlaw', brand: brands[0], gear_type: :bcd },
+    { name: 'Pearl', brand: brands[0], gear_type: :bcd },
+    { name: 'Zuma', brand: brands[0], gear_type: :bcd },
+    { name: 'Rogue', brand: brands[0], gear_type: :bcd },
+
+    # Scubapro BCDs
+    { name: 'Hydros Pro', brand: brands[1], gear_type: :bcd },
+
+    # Mares BCDs
+    { name: 'Hybrid Pure', brand: brands[2], gear_type: :bcd },
+    { name: 'Prime', brand: brands[2], gear_type: :bcd },
+    { name: 'Kaila SLS', brand: brands[2], gear_type: :bcd },
+    { name: 'Dragon SLS', brand: brands[2], gear_type: :bcd },
+    { name: 'Bolt SLS', brand: brands[2], gear_type: :bcd },
+
+    # Cressi BCDs
+    { name: 'Start Pro 2.0', brand: brands[3], gear_type: :bcd },
+    { name: 'Travelight', brand: brands[3], gear_type: :bcd },
+    { name: 'Aquaride Pro', brand: brands[3], gear_type: :bcd },
+    { name: 'Donut Wing', brand: brands[3], gear_type: :bcd },
+    { name: 'Back Jac', brand: brands[3], gear_type: :bcd },
+
+    # Apeks BCDs
+    { name: 'Black Ice', brand: brands[4], gear_type: :bcd },
+    { name: 'WTX-D18', brand: brands[4], gear_type: :bcd },
+    { name: 'WTX-D45', brand: brands[4], gear_type: :bcd },
+    { name: 'WTX-D60', brand: brands[4], gear_type: :bcd },
+    { name: 'WTX-D30', brand: brands[4], gear_type: :bcd }
   ]
 )
 

@@ -2,12 +2,36 @@
   <h2 class="text-2xl font-bold mb-6"><%= t('user_gears.new.title') %></h2>
 
   <div class="bg-white shadow-md rounded-lg p-6">
-    <%= form_with model: @user_gear, url: user_gears_path, local: true, class: "space-y-4" do |f| %>
+    <%= form_with model: @user_gear, url: user_gears_path, local: true, class: "space-y-4", data: { controller: "gear-selection" } do |f| %>
+
+      <!-- Gear Type Select -->
       <div>
-        <%= f.label :gear_id, t('user_gears.form.gear_label'), class: 'block text-gray-700 font-medium' %>
-        <%= f.collection_select :gear_id, @available_gears, :id, :name, { prompt: t('user_gears.form.gear_prompt') }, class: "block w-full px-4 py-2 mt-1 border rounded-lg" %>
+        <%= f.label :gear_type, t('user_gears.form.gear_type_label'), class: 'block text-gray-700 font-medium' %>
+        <%= f.select :gear_type, options_for_select(Gear.gear_types.keys.map { |type| [t("activerecord.attributes.gear.gear_types.#{type}"), type] }), {},
+                     class: "block w-full px-4 py-2 mt-1 border rounded-lg", data: { action: "change->gear-selection#updateBrands", gear_selection_target: "gearType" } %>
       </div>
 
+      <!-- Brand Select -->
+      <div>
+        <%= f.label :brand_id, t('user_gears.form.brand_label'), class: 'block text-gray-700 font-medium' %>
+        <%= f.select :brand_id, [], { prompt: t('user_gears.form.brand_prompt') },
+                     class: "block w-full px-4 py-2 mt-1 border rounded-lg", data: { action: "change->gear-selection#updateGears", gear_selection_target: "brand" } %>
+      </div>
+
+      <!-- Gear Select -->
+      <div>
+        <%= f.label :gear_id, t('user_gears.form.gear_label'), class: 'block text-gray-700 font-medium' %>
+        <%= f.select :gear_id, [], { prompt: t('user_gears.form.gear_prompt') },
+                     class: "block w-full px-4 py-2 mt-1 border rounded-lg", data: { gear_selection_target: "gear" } %>
+      </div>
+
+      <!-- Last Service Date -->
+      <div>
+        <%= f.label :last_service_date, t('user_gears.form.last_service_date_label'), class: 'block text-gray-700 font-medium' %>
+        <%= f.date_field :last_service_date, class: "block w-full px-4 py-2 mt-1 border rounded-lg" %>
+      </div>
+
+      <!-- Submit Button -->
       <div>
         <%= f.submit t('user_gears.form.submit_button'), class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" %>
       </div>

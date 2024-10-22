@@ -3,8 +3,10 @@ en:
     index:
       title: "My Gears"
       user_gear_list: "Your Gears"
+      gear_type_name: "Gear Type"
       gear_name: "Gear"
       brand_name: "Brand"
+      last_service_date: "Last Service"
       actions: "Actions"
       remove: "Remove"
       confirm_remove: "Are you sure you want to remove this gear?"
@@ -18,6 +20,10 @@ en:
     destroy:
       success: "Gear removed successfully."
     form:
+      gear_type_label: "Select Gear Type"
       gear_label: "Select Gear"
       gear_prompt: "Choose a gear"
+      brand_label: "Select Brand"
+      brand_prompt: "Choose a brand"
+      last_service_date_label: "Last Service Date"
       submit_button: "Add Gear"

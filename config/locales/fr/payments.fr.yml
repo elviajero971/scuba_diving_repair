@@ -16,3 +16,10 @@ fr:
       title: "Paiement réussi!"
       message: "Votre paiement a été effectué avec succès."
       button_to_service_details: "Retour au Services"
+    index:
+      title: "Paiements"
+      table:
+          service: "Service"
+          status: "Statut"
+          amount: "Montant"
+          created_at: "Créé le"

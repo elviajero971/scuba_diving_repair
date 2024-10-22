@@ -3,8 +3,10 @@ ca:
     index:
       title: "Els Meus Equips"
       user_gear_list: "Els Teus Equips"
+      gear_type_name: "Tipus d'Equip"
       gear_name: "Equip"
       brand_name: "Marca"
+      last_service_date: "Últim Servei"
       actions: "Accions"
       remove: "Eliminar"
       confirm_remove: "Estàs segur que vols eliminar aquest equip?"
@@ -18,6 +20,10 @@ ca:
     destroy:
       success: "Equip eliminat amb èxit."
     form:
+      gear_type_label: "Selecciona el Tipus d'Equip"
       gear_label: "Selecciona l'equip"
       gear_prompt: "Tria un equip"
+      brand_label: "Selecciona la Marca"
+      brand_prompt: "Tria una marca"
+      last_service_date_label: "Data de l'Últim Servei"
       submit_button: "Afegir equip"

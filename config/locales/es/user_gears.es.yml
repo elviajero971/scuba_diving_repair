@@ -3,8 +3,10 @@ es:
     index:
       title: "Mis Equipos"
       user_gear_list: "Tus Equipos"
+      gear_type_name: "Tipo de Equipo"
       gear_name: "Equipo"
       brand_name: "Marca"
+      last_service_date: "Último Servicio"
       actions: "Acciones"
       remove: "Eliminar"
       confirm_remove: "¿Estás seguro de que quieres eliminar este equipo?"
@@ -18,6 +20,10 @@ es:
     destroy:
       success: "Equipo eliminado con éxito."
     form:
+      gear_type_label: "Seleccionar Tipo de Equipo"
       gear_label: "Seleccionar Equipo"
       gear_prompt: "Elige un equipo"
+      brand_label: "Seleccionar Marca"
+      brand_prompt: "Elige una marca"
+      last_service_date_label: "Fecha del Último Servicio"
       submit_button: "Añadir equipo"

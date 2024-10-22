@@ -7,7 +7,12 @@ Rails.application.routes.draw do
       get 'choose_payment', to: 'payments#choose_payment', as: 'choose_payment'
     end
 
+    resources :payments, only: [:index]
+
     resources :user_gears, only: [:index, :new, :create, :destroy]
+
+    get 'brands/by_gear_type', to: 'brands#by_gear_type'
+    get 'gears/by_brand_and_type', to: 'gears#by_brand_and_type'
 
     post '/webhooks/stripe', to: 'webhooks#stripe'
 

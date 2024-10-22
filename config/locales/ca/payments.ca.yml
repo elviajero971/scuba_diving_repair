@@ -16,3 +16,10 @@ ca:
       title: "Pagament correcte!"
       message: "El vostre pagament s'ha processat correctament."
       button_to_service_details: "Torna als serveis"
+    index:
+      title: "Pagaments"
+      table:
+          service: "Servei"
+          status: "Estat"
+          amount: "Quantitat"
+          created_at: "Creat el"

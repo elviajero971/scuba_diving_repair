@@ -4,4 +4,5 @@ class UserGear < ApplicationRecord
 
   validates :user_id, presence: true
   validates :gear_id, presence: true
+  validates :last_service_date, presence: true
 end

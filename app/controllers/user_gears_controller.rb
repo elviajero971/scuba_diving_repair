@@ -33,6 +33,6 @@ class UserGearsController < ApplicationController
   end
 
   def user_gear_params
-    params.require(:user_gear).permit(:gear_id)
+    params.require(:user_gear).permit(:gear_id, :last_service_date)
   end
 end

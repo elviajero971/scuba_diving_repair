@@ -1,6 +1,10 @@
 class PaymentsController < ApplicationController
   before_action :set_service, only: [:choose_payment, :create]
 
+  def index
+    @payments = current_user.payments
+  end
+
   def choose_payment
     puts "Payment choose_payment from PaymentsController#choose_payment"
     @product_premium = Product.find_by(product_type: :premium)

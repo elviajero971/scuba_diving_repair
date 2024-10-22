@@ -16,3 +16,10 @@ es:
       title: "¡Pago exitoso!"
       message: "Tu pago se procesó exitosamente."
       button_to_service_details: "Volver a los servicios"
+    index:
+      title: "Pagos"
+      table:
+        service: "Servicio"
+        status: "Estado"
+        amount: "Monto"
+        created_at: "Creado en"

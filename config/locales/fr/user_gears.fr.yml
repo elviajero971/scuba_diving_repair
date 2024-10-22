@@ -3,8 +3,10 @@ fr:
     index:
       title: "Mes Équipements"
       user_gear_list: "Vos Équipements"
+      gear_type_name: "Type d'Équipement"
       gear_name: "Équipement"
       brand_name: "Marque"
+      last_service_date: "Dernier Service"
       actions: "Actions"
       remove: "Supprimer"
       confirm_remove: "Êtes-vous sûr de vouloir supprimer cet équipement ?"
@@ -18,6 +20,10 @@ fr:
     destroy:
       success: "Équipement supprimé avec succès."
     form:
+      gear_type_label: "Sélectionnez le Type d'Équipement"
       gear_label: "Sélectionnez l'équipement"
       gear_prompt: "Choisissez un équipement"
+      brand_label: "Sélectionnez la Marque"
+      brand_prompt: "Choisissez une marque"
+      last_service_date_label: "Date du Dernier Service"
       submit_button: "Ajouter l'équipement"

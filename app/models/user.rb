@@ -8,4 +8,5 @@ class User < ApplicationRecord
 
   has_many :user_gears
   has_many :gears, through: :user_gears
+  has_many :payments, through: :services
 end

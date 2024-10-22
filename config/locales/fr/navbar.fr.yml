@@ -1,6 +1,9 @@
 fr:
   navbar:
     home: "Accueil"
+    my_gears: "Équipements"
+    my_services: "Services"
+    my_payments: "Paiements"
     sign_in: "Se connecter"
     sign_out: "Se déconnecter"
     sign_up: "S'inscrire"

@@ -16,3 +16,12 @@ ca:
         payment_status:
           not_paid: "No pagat"
           paid: "Pagat"
+      payment:
+        status:
+          pending: "Pendent"
+          succeeded: "Exitós"
+          failed: "Fallit"
+      gear:
+        gear_type:
+          regulator: "Regulador"
+          bcd: "BCD"

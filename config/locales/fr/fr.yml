@@ -16,3 +16,12 @@ fr:
         payment_status:
           not_paid: "Non payé"
           paid: "Payé"
+      payment:
+        status:
+          pending: "En attente"
+          succeeded: "Réussi"
+          failed: "Échoué"
+      gear:
+        gear_type:
+          regulator: "Détendeur"
+          bcd: "Gilet stabilisateur"

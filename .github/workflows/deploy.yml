@@ -1,0 +1,91 @@
+name: Deploy Rails App for scuba diving repair
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy Scuba diving Rails App to Raspberry Pi
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Deploy to Raspberry Pi
+        env:
+          RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
+          RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
+        run: |
+          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP << 'EOF'
+            # Remove the old directory if it exists
+            if [ -d "/var/www/html/scubadiving" ]; then
+              echo "Removing old directory..."
+              rm -rf /var/www/html/scubadiving
+            fi
+
+            # Clone the repository into /var/www/html
+            echo "Cloning repository..."
+            git clone git@github.com:elviajero971/scuba_diving_repair.git /var/www/html/scubadiving || { echo "Git clone failed"; exit 1; }
+
+            # Change directory to the new clone
+            cd /var/www/html/scubadiving || { echo "Directory not found"; exit 1; }
+
+            # Export the secret_key_base
+            echo "Exporting SECRET_KEY_BASE..."
+            export SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
+
+
+            # Export the database credentials
+            echo "Exporting database credentials..."
+            export SCUBADIVING_APP_DATABASE_NAME=${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
+            export SCUBADIVING_APP_DATABASE_USER=${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
+            export SCUBADIVING_APP_DATABASE_PASSWORD=${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
+            export RAILS_ENV=production
+
+            # print all ENV variables
+
+            echo "Checking all ENV variables..."
+            env
+
+            # Define the directory where your Rails app is deployed
+            APP_DIR="/var/www/html/scubadiving/"
+
+            # Define the path to the secure .env.production file
+            SECURE_ENV_FILE="/var/app_credentials/scubadiving/.env.production"
+
+            # copy the environment variables to the app folder
+            echo "Copying the secure .env.production file to the Rails app directory..."
+            sudo cp $SECURE_ENV_FILE $APP_DIR || { echo "Failed to copy the .env.production file"; exit 1; }
+
+            # Copy the secure .env.production file to the Rails app directory
+
+            bundle config set force_ruby_platform true
+
+            echo "Running bundle install..."
+            bundle install
+
+
+            # Run database migrations
+            echo "Running database migrations..."
+            RAILS_ENV=production bundle exec rake db:migrate || { echo "Database migration failed"; exit 1; }
+
+            # Restart Apache
+            echo "Restarting Apache..."
+            sudo systemctl restart apache2 || { echo "Failed to restart Apache"; exit 1; }
+
+            cd /var/www/html/scubadiving
+            export SCUBADIVING_APP_DATABASE_NAME=${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
+            export SCUBADIVING_APP_DATABASE_USER=${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
+            export SCUBADIVING_APP_DATABASE_PASSWORD=${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
+            export RAILS_ENV=production
+
+            echo "Checking all ENV variables..."
+            env
+          EOF
+
+      - name: Cleanup
+        run: rm -rf ~/.ssh

@@ -1,6 +1,9 @@
 ca:
   navbar:
     home: "Inici"
+    my_gears: "Equips"
+    my_services: "Serveis"
+    my_payments: "Pagaments"
     sign_in: "Iniciar sessió"
     sign_out: "Tancar sessió"
     sign_up: "Registra't"

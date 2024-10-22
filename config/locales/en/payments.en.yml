@@ -16,3 +16,10 @@ en:
       title: "Payment Successful!"
       message: "Your payment was successfully processed."
       button_to_service_details: "Back to Services"
+    index:
+      title: "Payments"
+      table:
+          service: "Service"
+          status: "Status"
+          amount: "Amount"
+          created_at: "Created At"

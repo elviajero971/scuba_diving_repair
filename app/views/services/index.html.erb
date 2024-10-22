@@ -10,6 +10,7 @@
     <tr>
       <th class="py-3 px-6 text-left"><%= t('services.index.table.gear') %></th>
       <th class="py-3 px-6 text-left"><%= t('services.index.table.service_type') %></th>
+      <th class="py-3 px-6 text-left"><%= t('services.index.table.created_at') %></th>
       <th class="py-3 px-6 text-left"><%= t('services.index.table.status') %></th>
       <th class="py-3 px-6 text-left"><%= t('services.index.table.payment.label') %></th>
     </tr>
@@ -19,6 +20,7 @@
       <tr class="border-b">
         <td class="py-3 px-6"><%= service.gear.name %></td>
         <td class="py-3 px-6"><%= service.translated_service_type %></td>
+        <td class="py-3 px-6"><%= l(service.created_at, format: :long) %></td>
         <td class="py-3 px-6"><%= service.translated_status %></td>
         <td class="py-3 px-6">
           <% if service.payment_status == 'paid' %>

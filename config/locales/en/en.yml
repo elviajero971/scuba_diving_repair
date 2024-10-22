@@ -16,3 +16,12 @@ en:
         payment_status:
           not_paid: "Not Paid"
           paid: "Paid"
+      payment:
+        status:
+          pending: "Pending"
+          succeeded: "Succeeded"
+          failed: "Failed"
+      gear:
+        gear_type:
+          regulator: "Regulator"
+          bcd: "BCD"

@@ -1,6 +1,9 @@
 es:
   navbar:
     home: "Inicio"
+    my_gears: "Equipos"
+    my_services: "Servicios"
+    my_payments: "Pagos"
     sign_in: "Iniciar sesión"
     sign_out: "Cerrar sesión"
     sign_up: "Registrarse"
