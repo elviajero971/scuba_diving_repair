@@ -42,6 +42,9 @@ jobs:
               echo "RVM not found. Exiting..."
               exit 1
             fi
+          
+            echo "display all ruby versions"
+            rvm list rubies
 
             # Ensure Ruby 3.2.0 is installed
             if ! rvm list rubies | grep "ruby-3.2.0" &> /dev/null
