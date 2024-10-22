@@ -23,9 +23,6 @@ RUN gem install bundler && bundle install --without development test
 # Copy the Rails app source code to the container
 COPY . .
 
-# Ensure the .env file is copied during the build process
-COPY .env /app/.env
-
 # Precompile assets
 RUN bundle exec rake assets:precompile
 
@@ -35,5 +32,5 @@ RUN a2enmod passenger
 # Expose port 80 to make Apache accessible
 EXPOSE 80
 
-# Start Apache and Passenger, make sure .env is loaded
-CMD source /app/.env && service apache2 restart && tail -f /dev/null
+# Start Apache and Passenger
+CMD service apache2 restart && tail -f /dev/null

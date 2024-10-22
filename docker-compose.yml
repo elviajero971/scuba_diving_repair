@@ -8,11 +8,12 @@ services:
       - RAILS_ENV=production
       - DATABASE_HOST=db
     env_file:
-      - /app/.env  # Reference the new .env file inside the container
+      - /app/.env  # Reference the .env file inside the container
     depends_on:
       - db
     volumes:
       - ".:/app"  # Mount the app directory
+      - /var/app_credentials/scubadiving/.env.production:/app/.env  # Mount the .env file inside the container
 
   # PostgreSQL service
   db:
