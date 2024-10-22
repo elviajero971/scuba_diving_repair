@@ -46,13 +46,11 @@ jobs:
           
             # Ensure Ruby and Bundler are installed
             echo "Installing Ruby and Bundler..."
-            sudo apt-get update
-            sudo apt-get install -y ruby-full build-essential libssl-dev libreadline-dev zlib1g-dev
 
             # Install bundler if not installed
             if ! gem spec bundler > /dev/null 2>&1; then
               echo "Installing bundler..."
-              gem install bundler
+              sudo gem install bundler
             fi
 
             # Export the secret_key_base
