@@ -9,13 +9,18 @@ RUN apt-get update -qq && apt-get install -y \
   postgresql-client \
   yarn \
   build-essential \
-  apache2-dev
+  apache2-dev \
+  zlib1g-dev \
+  liblzma-dev
 
 # Set working directory inside the Docker container
 WORKDIR /app
 
 # Copy Gemfile and Gemfile.lock to Docker container
 COPY Gemfile Gemfile.lock ./
+
+# Set Bundler to always build Nokogiri from source
+RUN bundle config set force_ruby_platform true
 
 # Install Bundler and the required gems
 RUN gem install bundler && bundle install --without development test
