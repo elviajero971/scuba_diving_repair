@@ -32,6 +32,21 @@ jobs:
             else
               echo "PostgreSQL is running."
             fi
+          
+            # check if env variables are set
+          
+            echo "Checking if env variables are set..."
+            if [ -z "$SCUBADIVING_APP_DATABASE_NAME" ]; then
+              echo "SCUBADIVING_APP_DATABASE_NAME is not set"; exit 1;
+            fi
+          
+            if [ -z "$SCUBADIVING_APP_DATABASE_USER" ]; then
+              echo "SCUBADIVING_APP_DATABASE_USER is not set"; exit 1;
+            fi
+          
+            if [ -z "$SCUBADIVING_APP_DATABASE_PASSWORD" ]; then
+              echo "SCUBADIVING_APP_DATABASE_PASSWORD is not set"; exit 1;
+            fi
 
             # Check if the database exists, create if it does not
             echo "Checking if the database exists..."
