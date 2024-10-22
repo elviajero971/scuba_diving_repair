@@ -1,4 +1,4 @@
-name: Deploy Rails App for scuba diving repair
+name: Deploy Rails App for scuba diving repair with Docker
 
 on:
   push:
@@ -8,14 +8,14 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Scuba diving Rails App to Raspberry Pi
+    name: Deploy Rails App to Raspberry Pi using Docker
     runs-on: ubuntu-latest
 
     steps:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
-      - name: Deploy to Raspberry Pi
+      - name: Deploy to Raspberry Pi with Docker
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
@@ -25,70 +25,50 @@ jobs:
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: |
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
-          "SCUBADIVING_APP_DATABASE_NAME='$SCUBADIVING_APP_DATABASE_NAME' \
-           SCUBADIVING_APP_DATABASE_USER='$SCUBADIVING_APP_DATABASE_USER' \
-           SCUBADIVING_APP_DATABASE_PASSWORD='$SCUBADIVING_APP_DATABASE_PASSWORD' \
-           SECRET_KEY_BASE='$SECRET_KEY_BASE' \
-           bash -s" << 'EOF'
-
-            # Ensure RVM is sourced
-            if [ -s "$HOME/.rvm/scripts/rvm" ]; then
-              echo "RVM found. Sourcing RVM..."
-              source "$HOME/.rvm/scripts/rvm"
-            elif [ -s "/etc/profile.d/rvm.sh" ]; then
-              echo "RVM system-wide installation found. Sourcing RVM..."
-              source /etc/profile.d/rvm.sh
-            else
-              echo "RVM not found. Exiting..."
-              exit 1
+          "bash -s" << 'EOF'
+          
+            # Ensure Docker is installed
+            if ! [ -x "$(command -v docker)" ]; then
+              echo "Docker is not installed. Installing Docker..."
+              curl -fsSL https://get.docker.com -o get-docker.sh
+              sh get-docker.sh
             fi
 
-            # Install Ruby 3.2.0 if not installed
-            if ! rvm list rubies | grep "ruby-3.2.0" &> /dev/null; then
-              echo "Ruby 3.2.0 not found. Installing Ruby 3.2.0..."
-              rvm install 3.2.0 || { echo "Failed to install Ruby 3.2.0. Exiting..."; exit 1; }
-            else
-              echo "Ruby 3.2.0 is already installed."
+            # Ensure Docker Compose is installed
+            if ! [ -x "$(command -v docker-compose)" ]; then
+              echo "Docker Compose is not installed. Installing Docker Compose..."
+              sudo curl -L "https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-armv7" -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
             fi
 
-            # Set Ruby 3.2.0 as the default and current version
-            rvm use 3.2.0 --default || { echo "Failed to use Ruby 3.2.0. Exiting..."; exit 1; }
-
-            # Check Ruby version
-            ruby_version=$(ruby -v)
-            if [[ $ruby_version == *"3.2.0"* ]]; then
-              echo "Using Ruby 3.2.0: $ruby_version"
-            else
-              echo "Ruby version mismatch. Exiting..."
-              exit 1
-            fi
-
-            # Upgrade RubyGems
-            echo "Upgrading RubyGems..."
-            gem update --system 3.2.3 || { echo "Failed to update RubyGems. Exiting..."; exit 1; }
-
-            # Install bundler
-            echo "Installing Bundler..."
-            gem install bundler || { echo "Failed to install Bundler. Exiting..."; exit 1; }
-
-            # Remove the old directory if it exists
+            # Remove the old app if it exists
             if [ -d "/var/www/html/scubadiving" ]; then
               echo "Removing old directory..."
               rm -rf /var/www/html/scubadiving
             fi
 
-            # Clone the repository into /var/www/html
+            # Clone the repository
             echo "Cloning repository..."
-            git clone git@github.com:elviajero971/scuba_diving_repair.git /var/www/html/scubadiving || { echo "Git clone failed"; exit 1; }
+            git clone git@github.com:elviajero971/scuba_diving_repair.git /var/www/html/scubadiving
 
-            # Change directory to the new clone
-            cd /var/www/html/scubadiving || { echo "Directory not found"; exit 1; }
+            # Change to the app directory
+            cd /var/www/html/scubadiving
 
-            # Export the secret_key_base
-            echo "Exporting SECRET_KEY_BASE..."
-            export SECRET_KEY_BASE=$SECRET_KEY_BASE
+            # Set up environment variables
+            echo "Setting up environment variables..."
+            echo 'SCUBADIVING_APP_DATABASE_NAME=${SCUBADIVING_APP_DATABASE_NAME}' > .env.production
+            echo 'SCUBADIVING_APP_DATABASE_USER=${SCUBADIVING_APP_DATABASE_USER}' >> .env.production
+            echo 'SCUBADIVING_APP_DATABASE_PASSWORD=${SCUBADIVING_APP_DATABASE_PASSWORD}' >> .env.production
+            echo 'SECRET_KEY_BASE=${SECRET_KEY_BASE}' >> .env.production
 
-            # Export the database credentials
-            echo "Exporting database credentials..."
-            export SCUBADIVING_APP_DATABASE_NAME=$SCUBADIVING_APP_DATABASE_NAME
-   
+            # Dockerfile Build process
+            echo "Building Docker images..."
+            docker-compose down || true
+            docker-compose build
+
+            # Start the app and database using Docker Compose
+            echo "Starting services with Docker Compose..."
+            docker-compose up -d
+
+            echo "Deployment complete."
+          EOF
