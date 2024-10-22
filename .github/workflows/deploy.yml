@@ -31,43 +31,48 @@ jobs:
            SECRET_KEY_BASE='$SECRET_KEY_BASE' \
            bash -s" << 'EOF'
 
-            # Install RVM and Ruby 3.2.0 if not installed
+                        # Ensure RVM is accessible
             if ! command -v rvm &> /dev/null
             then
-              echo "RVM not found. Installing RVM..."
-              sudo apt-get install -y curl gpg
-              curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-              curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
-              curl -sSL https://get.rvm.io | bash -s stable
-              source "$HOME/.rvm/scripts/rvm"
+              echo "RVM not found. Exiting..."
+              exit 1
             else
-              echo "RVM is already installed."
+              echo "RVM found. Sourcing RVM..."
               source "$HOME/.rvm/scripts/rvm"
             fi
 
-            # Install Ruby 3.2.0 if not installed
+            # Ensure Ruby 3.2.0 is installed
             if ! rvm list rubies | grep "ruby-3.2.0" &> /dev/null
             then
-              echo "Ruby 3.2.0 not found. Installing Ruby 3.2.0..."
-              rvm install 3.2.0
+              echo "Ruby 3.2.0 not found. Exiting..."
+              exit 1
             else
-              echo "Ruby 3.2.0 is already installed."
+              echo "Ruby 3.2.0 found."
             fi
 
-            # Set Ruby 3.2.0 as default
-            rvm use 3.2.0 --default
+            # Use Ruby 3.2.0
+            rvm use 3.2.0 --default || { echo "Failed to use Ruby 3.2.0. Exiting..."; exit 1; }
 
             # Check Ruby version
-            echo "Using Ruby version:"
-            ruby -v
+            ruby_version=$(ruby -v)
+            if [[ $ruby_version == *"3.2.0"* ]]; then
+              echo "Using Ruby 3.2.0: $ruby_version"
+            else
+              echo "Ruby version mismatch. Exiting..."
+              exit 1
+            fi
 
             # Upgrade RubyGems
             echo "Upgrading RubyGems..."
-            gem update --system 3.2.3
+            gem update --system 3.2.3 || { echo "Failed to update RubyGems. Exiting..."; exit 1; }
 
             # Install bundler
-            echo "Installing Bundler..."
-            gem install bundler
+            if ! gem list bundler -i; then
+              echo "Installing Bundler..."
+              gem install bundler || { echo "Failed to install Bundler. Exiting..."; exit 1; }
+            else
+              echo "Bundler is already installed."
+            fi
 
             # Remove the old directory if it exists
             if [ -d "/var/www/html/scubadiving" ]; then
