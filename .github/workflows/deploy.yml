@@ -24,9 +24,14 @@ jobs:
           SCUBADIVING_APP_DATABASE_PASSWORD: ${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: |
+          # Check if environment variables are present
+          if [ -z "$SCUBADIVING_APP_DATABASE_NAME" ] || [ -z "$SCUBADIVING_APP_DATABASE_USER" ] || [ -z "$SCUBADIVING_APP_DATABASE_PASSWORD" ] || [ -z "$SECRET_KEY_BASE" ]; then
+            echo "Error: One or more environment variables are missing. Exiting."
+            exit 1
+          fi
 
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
-          "bash -s" << 'EOF'
+          "bash -s" << EOF
             # Ensure Docker is installed
             if ! [ -x "$(command -v docker)" ]; then
               echo "Docker is not installed. Installing Docker..."
