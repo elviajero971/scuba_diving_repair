@@ -30,48 +30,6 @@ jobs:
            SCUBADIVING_APP_DATABASE_PASSWORD='$SCUBADIVING_APP_DATABASE_PASSWORD' \
            SECRET_KEY_BASE='$SECRET_KEY_BASE' \
            bash -s" << 'EOF'
-            # Check if PostgreSQL is installed and running
-            echo "Checking if PostgreSQL is installed and running..."
-            if ! systemctl is-active --quiet postgresql; then
-              echo "PostgreSQL is not running, starting PostgreSQL..."
-              sudo systemctl start postgresql || { echo "Failed to start PostgreSQL"; exit 1; }
-            else
-              echo "PostgreSQL is running."
-            fi
-          
-            # Check if env variables are set
-            echo "Checking if env variables are set..."
-            if [ -z "$SCUBADIVING_APP_DATABASE_NAME" ]; then
-              echo "SCUBADIVING_APP_DATABASE_NAME is not set"; exit 1;
-            fi
-          
-            if [ -z "$SCUBADIVING_APP_DATABASE_USER" ]; then
-              echo "SCUBADIVING_APP_DATABASE_USER is not set"; exit 1;
-            fi
-          
-            if [ -z "$SCUBADIVING_APP_DATABASE_PASSWORD" ]; then
-              echo "SCUBADIVING_APP_DATABASE_PASSWORD is not set"; exit 1;
-            fi
-
-            # Check if the database exists, create if it does not
-            echo "Checking if the database exists..."
-            if ! sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -qw $SCUBADIVING_APP_DATABASE_NAME; then
-              echo "Database does not exist, creating the database..."
-              sudo -u postgres psql -c "CREATE DATABASE $SCUBADIVING_APP_DATABASE_NAME;" || { echo "Failed to create the database"; exit 1; }
-              sudo -u postgres psql -c "CREATE USER $SCUBADIVING_APP_DATABASE_USER WITH PASSWORD '$SCUBADIVING_APP_DATABASE_PASSWORD';" || { echo "Failed to create the user"; exit 1; }
-              sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $SCUBADIVING_APP_DATABASE_NAME TO $SCUBADIVING_APP_DATABASE_USER;" || { echo "Failed to grant privileges"; exit 1; }
-            else
-              echo "Database exists."
-            fi
-
-            # Test the connection to the database
-            echo "Testing database connection..."
-            PGPASSWORD=$SCUBADIVING_APP_DATABASE_PASSWORD psql -U $SCUBADIVING_APP_DATABASE_USER -d $SCUBADIVING_APP_DATABASE_NAME -c '\q'
-            if [ $? -eq 0 ]; then
-              echo "Connection to database successful."
-            else
-              echo "Failed to connect to the database"; exit 1;
-            fi
           
             # Remove the old directory if it exists
             if [ -d "/var/www/html/scubadiving" ]; then
