@@ -17,7 +17,6 @@ RUN apt-get update -qq && apt-get install -y \
   apt-transport-https \
   ca-certificates \
   gnupg2 \
-  # Additional packages that your app might need (Node.js, Yarn, etc.)
   nodejs \
   postgresql-client \
   yarn \
@@ -25,15 +24,15 @@ RUN apt-get update -qq && apt-get install -y \
   libapache2-mod-passenger \
   apache2-dev
 
-# Install or update glibc to a specific version
-RUN wget http://ftp.us.debian.org/debian/pool/main/g/glibc/libc6_2.29-1_amd64.deb && \
-    dpkg -i libc6_2.29-1_amd64.deb && \
-    rm libc6_2.29-1_amd64.deb
+# Install or update glibc to version 2.31
+RUN wget http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6_2.31-0ubuntu9_amd64.deb && \
+    dpkg -i libc6_2.31-0ubuntu9_amd64.deb && \
+    rm libc6_2.31-0ubuntu9_amd64.deb
 
-# Install Bundler and your gems
+# Set the working directory inside the Docker container
 WORKDIR /app
 
-# Copy Gemfile and Gemfile.lock before running bundle install
+# Copy Gemfile and Gemfile.lock to Docker container
 COPY Gemfile Gemfile.lock ./
 
 # Install Bundler and the required gems (without development and test groups)
@@ -41,7 +40,7 @@ RUN gem install bundler && \
     bundle config set without 'development test' && \
     bundle install
 
-# Copy the entire application into the container
+# Copy the entire Rails application into the container
 COPY . .
 
 # Precompile assets
