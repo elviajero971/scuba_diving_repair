@@ -1,38 +1,57 @@
-# Base image: Official Ruby image with a specific version
+# Base image: Official Ruby image with a specific version (Debian-based)
 FROM ruby:3.2.0
 
-# Install dependencies including Apache, Passenger, NodeJS, PostgreSQL client, and Yarn
+# Ensure apt-get is non-interactive, update system packages, and install dependencies
 RUN apt-get update -qq && apt-get install -y \
-  apache2 \
-  libapache2-mod-passenger \
+  build-essential \
+  wget \
+  locales \
+  libssl-dev \
+  zlib1g-dev \
+  libreadline-dev \
+  libyaml-dev \
+  libxml2-dev \
+  libxslt1-dev \
+  libcurl4-openssl-dev \
+  software-properties-common \
+  apt-transport-https \
+  ca-certificates \
+  gnupg2 \
+  # Additional packages that your app might need (Node.js, Yarn, etc.)
   nodejs \
   postgresql-client \
   yarn \
-  build-essential \
-  apache2-dev \
-  zlib1g-dev \
-  liblzma-dev
+  apache2 \
+  libapache2-mod-passenger \
+  apache2-dev
 
-# Set working directory inside the Docker container
+# Install or update glibc to a specific version
+RUN wget http://ftp.us.debian.org/debian/pool/main/g/glibc/libc6_2.29-1_amd64.deb && \
+    dpkg -i libc6_2.29-1_amd64.deb && \
+    rm libc6_2.29-1_amd64.deb
+
+# Install Bundler and your gems
 WORKDIR /app
 
-# Copy Gemfile and Gemfile.lock to Docker container
+# Copy Gemfile and Gemfile.lock before running bundle install
 COPY Gemfile Gemfile.lock ./
 
-# Set Bundler to always build Nokogiri from source
-RUN bundle config set force_ruby_platform true
+# Install Bundler and the required gems (without development and test groups)
+RUN gem install bundler && \
+    bundle config set without 'development test' && \
+    bundle install
 
-# Install Bundler and the required gems
-RUN gem install bundler && bundle install --without development test
-
-# Copy the Rails app source code to the container
+# Copy the entire application into the container
 COPY . .
+
+# Precompile assets
+RUN bundle exec rake assets:precompile
 
 # Enable Passenger and Apache modules
 RUN a2enmod passenger
 
-# Expose port 80 to make Apache accessible
+# Expose port 80 for the web server
 EXPOSE 80
 
-# Start Apache and Passenger
+# Start Apache and keep it running
 CMD service apache2 restart && tail -f /dev/null
