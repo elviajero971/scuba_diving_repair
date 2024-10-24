@@ -23,11 +23,5 @@ COPY . .
 # Precompile assets
 RUN bundle exec rake assets:precompile
 
-# run the migrations
-RUN bundle exec rake db:migrate
-
 # Expose the Rails default port 3000
 EXPOSE 3000
-
-# Start the Rails server on port 3000 (inside the container)
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]

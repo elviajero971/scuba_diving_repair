@@ -59,6 +59,8 @@ jobs:
 
             # Build and start new containers from /var/www/html/scubadiving
             docker-compose up -d --build
+          
+            docker-compose exec app bundle exec rails db:setup
 
             echo "Deployment complete."
           EOF
