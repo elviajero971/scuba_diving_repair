@@ -19,7 +19,19 @@ jobs:
 
       # Updated to ensure correct architecture during Docker build
       - name: Build Docker image locally
-        run: docker build --platform linux/arm/v7 -t scubadiving-app .  # **Ensured build is for ARM architecture (linux/arm/v7)**
+        run: docker build -t scubadiving-app .
+
+      # **Check the architecture of the built Docker image** and fail the job if it does not match the expected architecture
+      - name: Check Docker image architecture
+        run: |
+          ARCH=$(docker image inspect scubadiving-app --format='{{.Architecture}}')
+          if [ "$ARCH" != "arm" ]; then
+            echo "Error: Incorrect architecture $ARCH. Expected arm."
+            exit 1
+          else
+            echo "Architecture check passed: $ARCH"
+          fi
+
 
       - name: Check Docker image size
         run: |
@@ -76,7 +88,7 @@ jobs:
             # **Added --platform to the build command to ensure ARM architecture**
             # Build and start new containers from /var/www/html/scubadiving
             echo "Building and starting new containers..."
-            docker-compose build --no-cache --platform linux/arm/v7
+            docker-compose build --no-cache
           
             # Start the containers
             docker-compose up -d
