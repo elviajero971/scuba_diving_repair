@@ -18,7 +18,7 @@ jobs:
         run: sudo apt-get install -y sshpass
 
       - name: Build Docker image locally
-        run: docker build -t scubadiving-app .
+        run: docker build -t --no-cache scubadiving-app .
 
       - name: Check Docker image size
         run: |
