@@ -1,17 +1,19 @@
-name: Deploy Rails App for scuba diving repair with Docker
+name: Deploy Rails App with Nginx and PostgreSQL
 
 on:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
   deploy:
-    name: Deploy Rails App to Raspberry Pi using Docker (without Apache)
+    name: Deploy Rails App to Raspberry Pi with Docker
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
@@ -19,65 +21,21 @@ jobs:
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
-          SCUBADIVING_APP_DATABASE_NAME: ${{ secrets.SCUBADIVING_APP_DATABASE_NAME }}
-          SCUBADIVING_APP_DATABASE_USER: ${{ secrets.SCUBADIVING_APP_DATABASE_USER }}
-          SCUBADIVING_APP_DATABASE_PASSWORD: ${{ secrets.SCUBADIVING_APP_DATABASE_PASSWORD }}
-          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: |
-          # Check if environment variables are present
-          if [ -z "$SCUBADIVING_APP_DATABASE_NAME" ] || [ -z "$SCUBADIVING_APP_DATABASE_USER" ] || [ -z "$SCUBADIVING_APP_DATABASE_PASSWORD" ] || [ -z "$SECRET_KEY_BASE" ]; then
-            echo "Error: One or more environment variables are missing. Exiting."
-            exit 1
-          fi
-
-          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=120 -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
-          "bash -s" << EOF
+          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
+          "bash -s" << 'EOF'
             # Ensure Docker is installed
             if ! [ -x "$(command -v docker)" ]; then
-              echo "Docker is not installed. Installing Docker..."
+              echo "Installing Docker..."
               curl -fsSL https://get.docker.com -o get-docker.sh
               sh get-docker.sh
             fi
 
-            # Ensure Docker Compose is installed
-            if ! [ -x "$(command -v docker-compose)" ]; then
-              echo "Docker Compose is not installed. Installing Docker Compose..."
-              sudo curl -L "https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-armv7" -o /usr/local/bin/docker-compose
-              sudo chmod +x /usr/local/bin/docker-compose
-            fi
+            # Remove old containers
+            docker-compose -f /path/to/docker-compose.yml down || true
 
-            # Remove the old app if it exists
-            if [ -d "/var/www/html/scubadiving" ]; then
-              echo "Removing old directory..."
-              sudo rm -rf /var/www/html/scubadiving
-            fi
-
-            # Clone the repository
-            echo "Cloning repository..."
-            git clone git@github.com:elviajero971/scuba_diving_repair.git /var/www/html/scubadiving
-
-            # Change to the app directory
-            cd /var/www/html/scubadiving
-
-            # Create .env file with the environment variables
-            echo "SCUBADIVING_APP_DATABASE_NAME=$SCUBADIVING_APP_DATABASE_NAME" >> /var/www/html/scubadiving/.env
-            echo "SCUBADIVING_APP_DATABASE_USER=$SCUBADIVING_APP_DATABASE_USER" >> /var/www/html/scubadiving/.env
-            echo "SCUBADIVING_APP_DATABASE_PASSWORD=$SCUBADIVING_APP_DATABASE_PASSWORD" >> /var/www/html/scubadiving/.env
-            echo "SECRET_KEY_BASE=$SECRET_KEY_BASE" >> /var/www/html/scubadiving/.env
-
-            # Ensure the .env file is created successfully
-            if [ ! -f /var/www/html/scubadiving/.env ]; then
-              echo ".env file not created. Exiting."
-              exit 1
-            else
-              echo ".env file created successfully."
-              cat /var/www/html/scubadiving/.env
-            fi
-
-            # Build and start Docker containers with the generated .env file
-            echo "Building Docker images and starting containers..."
-            sudo docker-compose down || true
-            sudo docker-compose up -d --build || { echo "Error: Docker build failed"; exit 1; }
+            # Build and start new containers
+            docker-compose -f /path/to/docker-compose.yml up -d --build
 
             echo "Deployment complete."
           EOF

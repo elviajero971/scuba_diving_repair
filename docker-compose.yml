@@ -3,30 +3,49 @@ version: '3.8'
 services:
   # Rails app service
   app:
-    build: .
-    ports:
-      - "8080:80"
+    build:
+      context: .
+      dockerfile: Dockerfile # This is the Dockerfile for the Rails app
     environment:
       - RAILS_ENV=production
       - DATABASE_HOST=db
-      - SCUBADIVING_APP_DATABASE_NAME
-      - SCUBADIVING_APP_DATABASE_USER
-      - SCUBADIVING_APP_DATABASE_PASSWORD
-      - SECRET_KEY_BASE
+    volumes:
+      - ".:/app"
     depends_on:
       - db
-    volumes:
-      - ".:/app"  # Mount the app directory from the host
+    networks:
+      - app_net
 
   # PostgreSQL service
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: ${SCUBADIVING_APP_DATABASE_NAME}
-      POSTGRES_USER: ${SCUBADIVING_APP_DATABASE_USER}
-      POSTGRES_PASSWORD: ${SCUBADIVING_APP_DATABASE_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - app_net
 
+  # Nginx service
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf # Custom Nginx configuration
+      - ./public:/app/public # For serving Rails public assets
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    networks:
+      - app_net
+
+# Define volumes
 volumes:
   postgres_data:
+
+# Define networks
+networks:
+  app_net:
