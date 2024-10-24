@@ -21,7 +21,7 @@ jobs:
       - name: Build Docker image for ARM architecture
         run: |
           docker buildx create --use
-          docker buildx build --platform linux/arm/v7 --no-cache -t scubadiving-app .
+          docker buildx build --platform linux/arm/v7 --no-cache -t scubadiving-app . --load
 
       # **Check the architecture of the built Docker image** and fail the job if it does not match the expected architecture
       - name: Check Docker image architecture
