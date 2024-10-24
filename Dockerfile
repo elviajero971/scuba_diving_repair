@@ -24,10 +24,10 @@ RUN apt-get update -qq && apt-get install -y \
   libapache2-mod-passenger \
   apache2-dev
 
-# Install or update glibc to version 2.31
-RUN wget http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6_2.31-0ubuntu9_amd64.deb && \
-    dpkg -i libc6_2.31-0ubuntu9_amd64.deb && \
-    rm libc6_2.31-0ubuntu9_amd64.deb
+## Install or update glibc to version 2.31
+#RUN wget http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6_2.31-0ubuntu9_amd64.deb && \
+#    dpkg -i libc6_2.31-0ubuntu9_amd64.deb && \
+#    rm libc6_2.31-0ubuntu9_amd64.deb
 
 # Set the working directory inside the Docker container
 WORKDIR /app
