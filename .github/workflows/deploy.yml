@@ -17,8 +17,9 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
+      # Updated to ensure correct architecture during Docker build
       - name: Build Docker image locally
-        run: docker build --platform linux/arm/v7 -t scubadiving-app .
+        run: docker build --platform linux/arm/v7 -t scubadiving-app .  # **Ensured build is for ARM architecture (linux/arm/v7)**
 
       - name: Check Docker image size
         run: |
@@ -41,6 +42,7 @@ jobs:
         run: |
           # Transfer the docker-compose.yml file to the Raspberry Pi
           sshpass -p $RASPBERRY_PI_PASSWORD scp -o StrictHostKeyChecking=no docker-compose.yml pi@$RASPBERRY_PI_IP:/var/www/html/scubadiving/
+
       - name: Transfer nginx.conf to Raspberry Pi
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
@@ -48,6 +50,7 @@ jobs:
         run: |
           # Transfer the nginx.conf file to the Raspberry Pi
           sshpass -p $RASPBERRY_PI_PASSWORD scp -o StrictHostKeyChecking=no nginx.conf pi@$RASPBERRY_PI_IP:/var/www/html/scubadiving/
+
       - name: Deploy to Raspberry Pi
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
@@ -70,9 +73,10 @@ jobs:
             echo "Stopping and removing old containers..."
             docker-compose down || true
 
+            # **Added --platform to the build command to ensure ARM architecture**
             # Build and start new containers from /var/www/html/scubadiving
             echo "Building and starting new containers..."
-            docker-compose build
+            docker-compose build --no-cache --platform linux/arm/v7
           
             # Start the containers
             docker-compose up -d
