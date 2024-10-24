@@ -18,7 +18,7 @@ jobs:
         run: sudo apt-get install -y sshpass
 
       - name: Build Docker image locally
-        run: docker build -t scubadiving-app .
+        run: docker build --platform linux/arm/v7 -t scubadiving-app .
 
       - name: Check Docker image size
         run: |
@@ -41,7 +41,13 @@ jobs:
         run: |
           # Transfer the docker-compose.yml file to the Raspberry Pi
           sshpass -p $RASPBERRY_PI_PASSWORD scp -o StrictHostKeyChecking=no docker-compose.yml pi@$RASPBERRY_PI_IP:/var/www/html/scubadiving/
-
+      - name: Transfer nginx.conf to Raspberry Pi
+        env:
+          RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
+          RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
+        run: |
+          # Transfer the nginx.conf file to the Raspberry Pi
+          sshpass -p $RASPBERRY_PI_PASSWORD scp -o StrictHostKeyChecking=no nginx.conf pi@$RASPBERRY_PI_IP:/var/www/html/scubadiving/
       - name: Deploy to Raspberry Pi
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
