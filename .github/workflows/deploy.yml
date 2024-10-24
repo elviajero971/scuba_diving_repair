@@ -26,7 +26,7 @@ jobs:
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
         run: |
           # Save and transfer Docker image to the Raspberry Pi in /var/www/html/scubadiving
-          docker save scubadiving-app | bzip2 | sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
+          docker save scubadiving-app | pv | bzip2 | sshpass -p $RASPBERRY_PI_PASSWORD ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "mkdir -p /var/www/html/scubadiving && cd /var/www/html/scubadiving && bunzip2 | docker load"
 
       - name: Deploy to Raspberry Pi
