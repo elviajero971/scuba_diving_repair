@@ -20,6 +20,9 @@ jobs:
       - name: Build Docker image locally
         run: docker build -t scubadiving-app .
 
+      - name: Install pv
+        run: sudo apt-get install -y pv
+
       - name: Save Docker image and transfer to Raspberry Pi
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
