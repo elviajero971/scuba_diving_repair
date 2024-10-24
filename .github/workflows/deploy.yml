@@ -17,6 +17,18 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
+      - name: Build Docker image locally
+        run: docker build -t scubadiving-app .
+
+      - name: Save Docker image and transfer to Raspberry Pi
+        env:
+          RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
+          RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
+        run: |
+          # Save and transfer Docker image to the Raspberry Pi in /var/www/html/scubadiving
+          docker save scubadiving-app | bzip2 | sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
+          "mkdir -p /var/www/html/scubadiving && cd /var/www/html/scubadiving && bunzip2 | docker load"
+
       - name: Deploy to Raspberry Pi
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
@@ -24,6 +36,9 @@ jobs:
         run: |
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "bash -s" << 'EOF'
+            # Navigate to the directory where the Docker image is stored
+            cd /var/www/html/scubadiving
+
             # Ensure Docker is installed
             if ! [ -x "$(command -v docker)" ]; then
               echo "Installing Docker..."
@@ -32,10 +47,10 @@ jobs:
             fi
 
             # Remove old containers
-            docker-compose -f /path/to/docker-compose.yml down || true
+            docker-compose down || true
 
-            # Build and start new containers
-            docker-compose -f /path/to/docker-compose.yml up -d --build
+            # Build and start new containers from /var/www/html/scubadiving
+            docker-compose up -d --build
 
             echo "Deployment complete."
           EOF
