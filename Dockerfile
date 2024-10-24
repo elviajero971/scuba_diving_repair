@@ -46,11 +46,8 @@ COPY . .
 # Precompile assets
 RUN bundle exec rake assets:precompile
 
-# Enable Passenger and Apache modules
-RUN a2enmod passenger
+# Expose the Rails default port 3000
+EXPOSE 3000
 
-# Expose port 80 for the web server
-EXPOSE 80
-
-# Start Apache and keep it running
-CMD service apache2 restart && tail -f /dev/null
+# Start the Rails server on port 3000 (inside the container)
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
