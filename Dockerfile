@@ -1,5 +1,5 @@
 # Base image: Official Ruby image with a specific version (Debian-based)
-FROM ruby:3.2.0
+FROM ruby:3.2.0-slim-bullseye
 
 # Set the working directory inside the Docker container
 WORKDIR /app
