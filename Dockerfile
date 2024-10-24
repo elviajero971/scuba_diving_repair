@@ -4,6 +4,13 @@ FROM ruby:3.2.0-slim-bullseye
 # Set the working directory inside the Docker container
 WORKDIR /app
 
+#
+RUN bash -c "set -o pipefail  && apt-get update "
+
+RUN bash -c "set -o pipefail && apt-get install -y --no-install-recommends build-essential curl git libpq-dev  "
+
+RUN bash -c "set -o pipefail && apt-get install -y --no-install-recommends libvips"
+
 # Copy Gemfile and Gemfile.lock to Docker container
 COPY Gemfile Gemfile.lock ./
 
@@ -15,6 +22,9 @@ COPY . .
 
 # Precompile assets
 RUN bundle exec rake assets:precompile
+
+# run the migrations
+RUN bundle exec rake db:migrate
 
 # Expose the Rails default port 3000
 EXPOSE 3000

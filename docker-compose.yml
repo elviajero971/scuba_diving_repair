@@ -15,7 +15,7 @@ services:
     environment:
       - RAILS_ENV=production
       - DATABASE_URL=postgres://scubadiving_user:password123@db:5432/scubadiving_production
-      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - RAILS_MASTER_KEY=62f170c11905ca2babdb123ec0301f01
     depends_on:
       - db
     ports:
@@ -32,6 +32,5 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-
 volumes:
   pgdata:
