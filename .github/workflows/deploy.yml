@@ -42,6 +42,7 @@ jobs:
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "bash -s" << 'EOF'
             # Navigate to the directory where the Docker image is stored
+            echo "Navigating to /var/www/html/scubadiving..."
             cd /var/www/html/scubadiving
 
             # Ensure Docker is installed
@@ -52,11 +53,15 @@ jobs:
             fi
 
             # Remove old containers
+            echo "Stopping and removing old containers..."
             docker-compose down || true
 
             # Build and start new containers from /var/www/html/scubadiving
-            docker-compose up -d --build
+            echo "Building and starting new containers..."
+            docker-compose up -d --build --no-cache
           
+            # Run database migrations and seed data
+            echo "Running database migrations and seeding data..."
             docker-compose exec app bundle exec rails db:setup
 
             echo "Deployment complete."
