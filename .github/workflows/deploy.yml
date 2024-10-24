@@ -18,7 +18,7 @@ jobs:
         run: sudo apt-get install -y sshpass
 
       - name: Build Docker image locally
-        run: docker build -t --no-cache scubadiving-app .
+        run: docker build --no-cache -t scubadiving-app .
 
       - name: Check Docker image size
         run: |
@@ -55,7 +55,7 @@ jobs:
             docker-compose down || true
 
             # Build and start new containers from /var/www/html/scubadiving
-            docker-compose up -d --build --no-cache
+            docker-compose up -d --build
           
             docker-compose exec app bundle exec rails db:setup
 
