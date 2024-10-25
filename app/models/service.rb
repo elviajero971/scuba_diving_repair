@@ -9,18 +9,5 @@ class Service < ApplicationRecord
 
   validates :user_id, :gear_id, :status, presence: true
 
-  def translated_status
-    I18n.t("activerecord.attributes.service.status.#{status}")
-  end
-
-  def translated_service_type
-    return I18n.t("activerecord.attributes.service.service_type.unknown") if service_type.nil?
-    I18n.t("activerecord.attributes.service.service_type.#{service_type}")
-  end
-
-  def translated_payment_status
-    I18n.t("activerecord.attributes.service.payment_status.#{payment_status}")
-  end
-
 end
 

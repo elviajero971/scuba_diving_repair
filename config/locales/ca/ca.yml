@@ -25,3 +25,9 @@ ca:
         gear_type:
           regulator: "Regulador"
           bcd: "BCD"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"

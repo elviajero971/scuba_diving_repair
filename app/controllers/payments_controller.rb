@@ -1,5 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :set_service, only: [:choose_payment, :create]
+  before_action :authenticate_user!
 
   def index
     @payments = current_user.payments

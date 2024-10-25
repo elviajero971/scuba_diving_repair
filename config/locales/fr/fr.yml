@@ -25,3 +25,9 @@ fr:
         gear_type:
           regulator: "Détendeur"
           bcd: "Gilet stabilisateur"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"

@@ -25,3 +25,9 @@ en:
         gear_type:
           regulator: "Regulator"
           bcd: "BCD"
+  date:
+    formats:
+      default: "%m/%d/%Y"
+  time:
+    formats:
+      default: "%m/%d/%Y %I:%M %p"

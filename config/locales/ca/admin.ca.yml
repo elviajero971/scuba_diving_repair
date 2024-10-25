@@ -57,3 +57,27 @@ ca:
       destroy:
         success: "Equip eliminat amb èxit."
         has_services_warning: "No es pot eliminar aquest equip perquè hi ha serveis associats."
+    users:
+      index:
+        title: "Usuaris"
+        email: "Correu electrònic"
+        actions: "Accions"
+        show: "Veure"
+      show:
+        email: "Correu electrònic de l'usuari"
+        gears: "Equips"
+        payments: "Pagaments anteriors"
+        services: "Serveis anteriors"
+        payment_amount: "Import"
+        payment_status: "Estat"
+        payment_service: "ID del servei"
+        payment_date: "Data"
+        service_id: "ID del servei"
+        service_type: "Tipus"
+        service_gear: "Equip"
+        service_status: "Estat"
+        service_created_at: "Creat el"
+        service_updated_at: "Última actualització"
+        no_gears: "No s'han trobat equips per a aquest usuari."
+        no_payments: "No s'han trobat pagaments per a aquest usuari."
+        no_services: "No s'han trobat serveis per a aquest usuari."

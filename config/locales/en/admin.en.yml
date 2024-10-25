@@ -57,3 +57,27 @@ en:
       destroy:
         success: "Gear deleted successfully."
         has_services_warning: "Cannot delete this gear because there are services associated with it."
+    users:
+      index:
+        title: "Users"
+        email: "User Email"
+        actions: "Actions"
+        show: "Show"
+      show:
+        email: "User Email"
+        gears: "Gears"
+        payments: "Previous Payments"
+        services: "Previous Services"
+        payment_amount: "Amount"
+        payment_status: "Status"
+        payment_service: "Service ID"
+        payment_date: "Date"
+        service_id: "Service ID"
+        service_type: "Type"
+        service_gear: "Gear"
+        service_status: "Status"
+        service_created_at: "Created At"
+        service_updated_at: "Last Updated"
+        no_gears: "No gears found for this user."
+        no_payments: "No payments found for this user."
+        no_services: "No services found for this user."

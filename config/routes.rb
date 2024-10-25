@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post '/webhooks/stripe', to: 'webhooks#stripe'
 
     get 'gears_for_brand/:brand_id', to: 'gears#for_brand', as: 'gears_for_brand'
+
     devise_for :users
 
     namespace :admin do
@@ -24,9 +25,10 @@ Rails.application.routes.draw do
       resources :gears
       resources :services, only: [:index, :show, :update]
       resources :payments, only: [:index]
+      resources :users, only: [:index, :show]
       root to: 'dashboard#index'
     end
 
-    root to: 'services#index'
+    root to: 'pages#home'
   end
 end

@@ -2,8 +2,7 @@ ca:
   user_gears:
     index:
       title: "Els Meus Equips"
-      user_gear_list: "Els Teus Equips"
-      gear_type_name: "Tipus d'Equip"
+      gear_type_name: "Tipus d'Equipament"
       gear_name: "Equip"
       brand_name: "Marca"
       last_service_date: "Últim Servei"

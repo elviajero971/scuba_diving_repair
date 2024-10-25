@@ -19,12 +19,12 @@
     <% @services.each do |service| %>
       <tr class="border-b">
         <td class="py-3 px-6"><%= service.gear.name %></td>
-        <td class="py-3 px-6"><%= service.translated_service_type %></td>
+        <td class="py-3 px-6"><%= translate_enum(service, :service_type) %></td>
         <td class="py-3 px-6"><%= l(service.created_at, format: :long) %></td>
-        <td class="py-3 px-6"><%= service.translated_status %></td>
+        <td class="py-3 px-6"><%= translate_enum(service, :status) %></td>
         <td class="py-3 px-6">
           <% if service.payment_status == 'paid' %>
-            <%= service.translated_payment_status %>
+            <%= translate_enum(service, :status) %>
           <%  else  %>
             <div class="flex">
               <%=  button_to t('services.index.table.payment.payment_button_basic'), service_payments_path(service, product_id: @product_basic.id), method: :post, class: 'text-blue-500 hover:text-blue-700 hover:underline py-2 px-4', data: { turbo: false }  %>

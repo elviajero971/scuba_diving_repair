@@ -17,10 +17,10 @@
       <tr>
         <td class="text-start py-2 px-4 border-b"><%= service.user.email %></td>
         <td class="text-start py-2 px-4 border-b"><%= service.gear.name %></td>
-        <td class="text-start py-2 px-4 border-b"><%= service.service_type %></td>
+        <td class="text-start py-2 px-4 border-b"><%= translate_enum(service, :service_type) %></td>
         <td class="text-start py-2 px-4 border-b"><%= service.created_at %></td>
         <td class="text-start py-2 px-4 border-b"><%= service.updated_at %></td>
-        <td class="text-start py-2 px-4 border-b"><%= service.status %></td>
+        <td class="text-start py-2 px-4 border-b"><%= translate_enum(service, :status) %></td>
       </tr>
     <% end %>
     </tbody>

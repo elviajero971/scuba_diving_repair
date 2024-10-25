@@ -1,0 +1,96 @@
+<div class="container mx-auto py-8">
+  <!-- User Details -->
+  <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h1 class="text-3xl font-bold mb-4"><%= t('admin.users.show.email') %></h1>
+    <p class="text-lg"><strong><%= t('admin.users.show.email') %>:</strong> <%= @user_presenter.email %></p>
+  </div>
+
+  <!-- Gears Table -->
+  <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-2xl font-bold mb-4"><%= t('admin.users.show.gears') %></h2>
+    <% if @user_presenter.gears.any? %>
+      <table class="min-w-full bg-white border-collapse">
+        <thead>
+        <tr class="bg-gray-100">
+          <th class="py-2 px-4 border-b text-left"><%= t('user_gears.form.gear_label') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('user_gears.form.gear_type_label') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('user_gears.form.last_service_date_label') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @user_presenter.gears.each do |gear| %>
+          <tr>
+            <td class="py-2 px-4 border-b"><%= gear.name %></td>
+            <td class="py-2 px-4 border-b"><%= translate_enum(gear, :gear_type, Gear) %></td>
+            <td class="py-2 px-4 border-b"><%= l(gear.last_service_date, format: :default) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-gray-500"><%= t('admin.users.show.no_gears') %></p>
+    <% end %>
+  </div>
+
+  <!-- Payments Table -->
+  <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-2xl font-bold mb-4"><%= t('admin.users.show.payments') %></h2>
+    <% if @user_presenter.payments.any? %>
+      <table class="min-w-full bg-white border-collapse">
+        <thead>
+        <tr class="bg-gray-100">
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.payment_amount') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.payment_status') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.payment_service') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.payment_date') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @user_presenter.payments.each do |payment| %>
+          <tr>
+            <td class="py-2 px-4 border-b"><%= number_to_currency(payment.amount) %></td>
+            <td class="py-2 px-4 border-b"><%= translate_enum(payment, :status) %></td>
+            <td class="py-2 px-4 border-b"><%= payment.service_id %></td>
+            <td class="py-2 px-4 border-b"><%= l(payment.created_at, format: :default) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-gray-500"><%= t('admin.users.show.no_payments') %></p>
+    <% end %>
+  </div>
+
+  <!-- Services Table -->
+  <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-2xl font-bold mb-4"><%= t('admin.users.show.services') %></h2>
+    <% if @user_presenter.services.any? %>
+      <table class="min-w-full bg-white border-collapse">
+        <thead>
+        <tr class="bg-gray-100">
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.service_id') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.service_type') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.service_gear') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.service_status') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.service_created_at') %></th>
+          <th class="py-2 px-4 border-b text-left"><%= t('admin.users.show.service_updated_at') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @user_presenter.services.each do |service| %>
+          <tr>
+            <td class="py-2 px-4 border-b"><%= service.id %></td>
+            <td class="py-2 px-4 border-b"><%= translate_enum(service, :service_type) %></td>
+            <td class="py-2 px-4 border-b"><%= service.gear.name %></td>
+            <td class="py-2 px-4 border-b"><%= translate_enum(service, :status) %></td>
+            <td class="py-2 px-4 border-b"><%= l(service.created_at, format: :default) %></td>
+            <td class="py-2 px-4 border-b"><%= l(service.updated_at, format: :default) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-gray-500"><%= t('admin.users.show.no_services') %></p>
+    <% end %>
+  </div>
+</div>

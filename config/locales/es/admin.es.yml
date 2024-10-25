@@ -57,3 +57,27 @@ es:
       destroy:
         success: "Equipo eliminado con éxito."
         has_services_warning: "No se puede eliminar este equipo porque hay servicios asociados."
+    users:
+      index:
+        title: "Usuarios"
+        email: "Correo electrónico"
+        actions: "Acciones"
+        show: "Ver"
+      show:
+        email: "Correo electrónico del usuario"
+        gears: "Equipos"
+        payments: "Pagos anteriores"
+        services: "Servicios anteriores"
+        payment_amount: "Cantidad"
+        payment_status: "Estado"
+        payment_service: "ID del servicio"
+        payment_date: "Fecha"
+        service_id: "ID del servicio"
+        service_type: "Tipo"
+        service_gear: "Equipo"
+        service_status: "Estado"
+        service_created_at: "Creado el"
+        service_updated_at: "Última actualización"
+        no_gears: "No se encontraron equipos para este usuario."
+        no_payments: "No se encontraron pagos para este usuario."
+        no_services: "No se encontraron servicios para este usuario."

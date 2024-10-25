@@ -14,6 +14,9 @@ RUN bash -c "set -o pipefail && apt-get install -y --no-install-recommends libvi
 # Copy Gemfile and Gemfile.lock to Docker container
 COPY Gemfile Gemfile.lock ./
 
+# Check if files were copied correctly
+RUN ls -la
+
 # Install Bundler and the required gems (without development and test groups)
 RUN bundle install
 

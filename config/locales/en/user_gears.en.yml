@@ -2,7 +2,6 @@ en:
   user_gears:
     index:
       title: "My Gears"
-      user_gear_list: "Your Gears"
       gear_type_name: "Gear Type"
       gear_name: "Gear"
       brand_name: "Brand"

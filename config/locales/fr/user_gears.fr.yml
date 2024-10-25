@@ -2,7 +2,6 @@ fr:
   user_gears:
     index:
       title: "Mes Équipements"
-      user_gear_list: "Vos Équipements"
       gear_type_name: "Type d'Équipement"
       gear_name: "Équipement"
       brand_name: "Marque"

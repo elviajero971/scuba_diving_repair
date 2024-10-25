@@ -2,9 +2,11 @@
   <div class="container mx-auto flex justify-between items-center">
     <div class="flex items-center">
       <%= link_to t('navbar.home'), root_path, class: "text-lg font-bold" %>
-      <%= link_to t('navbar.my_gears'), user_gears_path, class: "text-medium mx-4" %>
-      <%= link_to t('navbar.my_services'), services_path, class: "text-medium mx-4" %>
-      <%= link_to t('navbar.my_payments'), payments_path, class: "tex-medium mx-4" %>
+      <% if user_signed_in? %>
+        <%= link_to t('navbar.my_gears'), user_gears_path, class: "text-medium mx-4" %>
+        <%= link_to t('navbar.my_services'), services_path, class: "text-medium mx-4" %>
+        <%= link_to t('navbar.my_payments'), payments_path, class: "tex-medium mx-4" %>
+      <% end %>
     </div>
     <div class="flex items-center">
       <% if user_signed_in? %>

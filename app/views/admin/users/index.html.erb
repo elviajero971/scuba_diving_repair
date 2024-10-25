@@ -1,0 +1,22 @@
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-bold mb-4"><%= t('admin.users.index.title') %></h2>
+
+  <table class="min-w-full bg-white">
+    <thead>
+    <tr>
+      <th class="text-start py-2 px-4 border-b"><%= t('admin.users.index.email') %></th>
+      <th class="text-start py-2 px-4 border-b"><%= t('admin.users.index.actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td class="text-start py-2 px-4 border-b"><%= user.email %></td>
+        <td class="text-start py-2 px-4 border-b">
+          <%= link_to t('admin.users.index.show'), admin_user_path(user), class: "text-blue-500 hover:underline" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

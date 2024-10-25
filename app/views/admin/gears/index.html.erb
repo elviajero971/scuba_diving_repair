@@ -19,7 +19,7 @@
       <tr>
         <td class="text-start py-2 px-4 border-b"><%= gear.name %></td>
         <td class="text-start py-2 px-4 border-b"><%= gear.brand.name %></td>
-        <td class="text-start py-2 px-4 border-b"><%= gear.gear_type %></td>
+        <td class="text-start py-2 px-4 border-b"><%= translate_enum(gear, :gear_type) %></td>
         <td class="text-start py-2 px-4 border-b">
           <%= link_to t('admin.gears.index.edit'), edit_admin_gear_path(gear), class: "text-blue-500 hover:underline" %> |
           <%= link_to t('admin.gears.index.destroy'), admin_gear_path(gear), method: :delete, data: { turbo_method: :delete, turbo_confirm: t('admin.gears.index.confirm_destroy') }, class: "text-red-500 hover:underline" %>

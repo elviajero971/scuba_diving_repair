@@ -57,3 +57,27 @@ fr:
       destroy:
         success: "Équipement supprimé avec succès."
         has_services_warning: "Impossible de supprimer cet équipement car des services y sont associés."
+    users:
+      index:
+        title: "Utilisateurs"
+        email: "Email de l'utilisateur"
+        actions: "Actions"
+        show: "Voir"
+      show:
+        email: "Email de l'utilisateur"
+        gears: "Équipements"
+        payments: "Paiements précédents"
+        services: "Services précédents"
+        payment_amount: "Montant"
+        payment_status: "Statut"
+        payment_service: "ID du service"
+        payment_date: "Date"
+        service_id: "ID du service"
+        service_type: "Type"
+        service_gear: "Équipement"
+        service_status: "Statut"
+        service_created_at: "Créé le"
+        service_updated_at: "Dernière mise à jour"
+        no_gears: "Aucun équipement trouvé pour cet utilisateur."
+        no_payments: "Aucun paiement trouvé pour cet utilisateur."
+        no_services: "Aucun service trouvé pour cet utilisateur."

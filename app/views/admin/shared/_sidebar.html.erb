@@ -4,6 +4,8 @@
   <%= link_to t('admin.sidebar.brands'), admin_brands_path, class: 'block py-2.5 px-4 hover:bg-gray-700' %>
   <%= link_to t('admin.sidebar.services'), admin_services_path, class: 'block py-2.5 px-4 hover:bg-gray-700' %>
   <%= link_to t('admin.sidebar.payments'), admin_payments_path, class: 'block py-2.5 px-4 hover:bg-gray-700' %>
+  <%= link_to t('admin.sidebar.users'), admin_users_path, class: 'block py-2.5 px-4 hover:bg-gray-700' %>
+  <%= link_to t('navbar.sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: "block py-2.5 px-4 hover:bg-gray-700" %>
 
   <!-- Language Switcher -->
   <div data-controller="toggle" data-toggle-hidden-class="hidden" class="relative mt-4">
