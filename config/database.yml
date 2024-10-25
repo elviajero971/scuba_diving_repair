@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: scuba_diving_shop_production
-  username: scuba_diving_shop
-  password: <%= ENV["SCUBA_DIVING_SHOP_DATABASE_PASSWORD"] %>
+  database: <%= ENV["SCUBADIVING_APP_DATABASE_NAME"] %>
+  username: <%= ENV["SCUBADIVING_APP_DATABASE_USER"] %>
+  password: <%= ENV["SCUBADIVING_APP_DATABASE_PASSWORD"] %>
