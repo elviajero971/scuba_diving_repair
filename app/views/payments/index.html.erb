@@ -16,7 +16,7 @@
         <td class="py-3 px-6"><%= payment.service.gear.name %></td>
         <td class="py-3 px-6"><%= l(payment.created_at, format: :long) %></td>
         <td class="py-3 px-6"><%= number_to_currency(payment.amount) %></td>
-        <td class="py-3 px-6"><%= payment.translated_status %></td>
+        <td class="py-3 px-6"><%= translate_enum(payment, :status) %></td>
       </tr>
     <% end %>
     </tbody>
