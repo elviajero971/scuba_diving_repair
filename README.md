@@ -120,7 +120,7 @@ DATABASE_URL=your-production-database-url
 
 ## 🌐 Live Demo
 
-You can view the live version of this application at: [https://scuba-maintenance-app.com](https://your-demo-link.com)
+There is no live demo available at the moment. Stay tuned for updates!
 
 ## 📬 Contact
 
