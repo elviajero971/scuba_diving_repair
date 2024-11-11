@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
     get 'gears_for_brand/:brand_id', to: 'gears#for_brand', as: 'gears_for_brand'
 
-    devise_for :users
+    devise_for :users, controllers: { registrations: 'registrations' }
 
     namespace :admin do
       resources :brands

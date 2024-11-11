@@ -13,7 +13,7 @@ Product.destroy_all
 
 # Create a default user
 puts 'Creating admin user...'
-User.create!(email: 'lucas@scuba.com', password:'Password1!', role: :admin)
+User.create!(email: 'admin@scuba.com', password:'Password1!', role: :admin)
 
 puts 'Creating users...'
 User.create!(email: 'bob@scuba.com', password:'Password1!', role: :client)
