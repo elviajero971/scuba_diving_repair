@@ -4,7 +4,7 @@ ca:
       service:
         status:
           pending: "Pendent"
-          not_delivered: "No lliurat"
+          waiting_on_delivery: "No lliurat"
           delivered: "Lliurat"
           ongoing_maintenance: "Manteniment en curs"
           ready_for_pick_up: "A punt per recollir"
@@ -14,7 +14,7 @@ ca:
           premium: "Premium"
           unknown: "Desconegut"
         payment_status:
-          not_paid: "No pagat"
+          unpaid: "No pagat"
           paid: "Pagat"
       payment:
         status:

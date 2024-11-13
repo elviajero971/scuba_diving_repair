@@ -4,7 +4,7 @@ es:
       service:
         status:
           pending: "Pendiente"
-          not_delivered: "No entregado"
+          waiting_on_delivery: "No entregado"
           delivered: "Entregado"
           ongoing_maintenance: "Mantenimiento en curso"
           ready_for_pick_up: "Listo para recoger"
@@ -14,7 +14,7 @@ es:
           premium: "Premium"
           unknown: "Desconocido"
         payment_status:
-          not_paid: "No pagado"
+          unpaid: "No pagado"
           paid: "Pagado"
       payment:
         status:

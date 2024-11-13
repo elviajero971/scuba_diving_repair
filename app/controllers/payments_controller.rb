@@ -56,7 +56,7 @@ class PaymentsController < ApplicationController
     payment = @service.payments.find_by(stripe_payment_id: params[:session_id])
 
     payment.update(status: :succeeded)
-    @service.update(payment_status: :paid, status: :not_delivered, service_type: @product_type.to_sym)
+    @service.update(payment_status: :paid, status: :waiting_on_delivery, service_type: @product_type.to_sym)
   end
 
   def cancel
