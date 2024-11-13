@@ -10,5 +10,5 @@ class User < ApplicationRecord
   has_many :gears, through: :user_gears
   has_many :payments, through: :services
 
-  enum role: { client: 0, admin: 1 }
+  enum role: { :client => 0, :admin => 1 }
 end

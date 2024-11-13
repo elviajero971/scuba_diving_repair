@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_10_25_081457) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "brands", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -22,7 +19,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_25_081457) do
 
   create_table "gears", force: :cascade do |t|
     t.string "name"
-    t.bigint "brand_id", null: false
+    t.integer "brand_id", null: false
     t.integer "gear_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,7 +27,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_25_081457) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.bigint "service_id", null: false
+    t.integer "service_id", null: false
     t.integer "status", default: 0
     t.string "stripe_payment_id"
     t.datetime "created_at", null: false
@@ -50,8 +47,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_25_081457) do
   end
 
   create_table "services", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "gear_id", null: false
+    t.integer "user_id", null: false
+    t.integer "gear_id", null: false
     t.integer "service_type"
     t.integer "status"
     t.datetime "created_at", null: false
@@ -62,8 +59,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_25_081457) do
   end
 
   create_table "user_gears", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "gear_id", null: false
+    t.integer "user_id", null: false
+    t.integer "gear_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "last_service_date"
