@@ -6,6 +6,7 @@ ca:
       table:
         gear: "Equip"
         service_type: "Tipus de servei"
+        created_at: "Creat el"
         status: "Estat"
         payment:
           label: "Pagament"

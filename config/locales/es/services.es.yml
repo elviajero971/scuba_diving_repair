@@ -6,6 +6,7 @@ es:
       table:
         gear: "Equipo"
         service_type: "Tipo de servicio"
+        created_at: "Creado el"
         status: "Estado"
         payment:
           label: "Pago"

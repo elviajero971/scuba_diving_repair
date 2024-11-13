@@ -6,6 +6,7 @@ en:
       table:
         gear: "Gear"
         service_type: "Service Type"
+        created_at: "Created at"
         status: "Status"
         payment:
           label: "Payment"

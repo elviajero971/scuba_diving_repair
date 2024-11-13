@@ -51,14 +51,10 @@ class PaymentsController < ApplicationController
   end
 
   def success
-    puts "Payment success from PaymentsController#success"
-    puts "service_id: #{params[:service_id]}"
-    puts "product_id: #{params[:product_id]}"
     @service = Service.find(params[:service_id])
     @product_type = Product.find_by(id: params[:product_id]).product_type.to_sym
     payment = @service.payments.find_by(stripe_payment_id: params[:session_id])
 
-    puts "Payment updates status to succeeded"
     payment.update(status: :succeeded)
     @service.update(payment_status: :paid, status: :not_delivered, service_type: @product_type.to_sym)
   end

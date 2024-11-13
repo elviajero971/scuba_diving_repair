@@ -28,6 +28,6 @@ class ServicesController < ApplicationController
   private
 
   def service_params
-    params.require(:service).permit(:gear_id, :status)
+    params.require(:service).permit(:gear_id, :status, :service_type)
   end
 end
