@@ -48,7 +48,7 @@ jobs:
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "bash -s" << 'EOF'
             # Pull the latest image from Docker Hub
-            docker pull your-dockerhub-username/scubadiving-app:latest
+            docker pull elviajero34/scubadiving-app:latest
 
             # Navigate to the app directory
             cd /var/www/html/scubadiving
