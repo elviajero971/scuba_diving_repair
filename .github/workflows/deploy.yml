@@ -48,20 +48,32 @@ jobs:
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "bash -s" << 'EOF'
             # Pull the latest image from Docker Hub
-            docker pull elviajero34/scubadiving-app:latest
+            echo "Pulling the latest Docker image from Docker Hub..."
+            if ! docker pull elviajero34/scubadiving-app:latest; then
+              echo "Failed to pull Docker image from Docker Hub."
+              exit 1
+            fi
+          
+            # Remove old images except for the latest
+            echo "Cleaning up old Docker images..."
+            docker image prune -af --filter "label!=maintainer=elviajero34" || true
 
             # Navigate to the app directory
+            echo "Navigating to the app directory..."
             cd /var/www/html/scubadiving
 
             # Ensure Docker is installed
+            echo "Installing Docker..."
             if ! [ -x "$(command -v docker)" ]; then
               curl -fsSL https://get.docker.com -o get-docker.sh
               sh get-docker.sh
             fi
 
             # Stop and remove old containers
-            docker-compose down || true
+            echo "Stopping and removing old containers..."
+            docker-compose down --remove-orphans || true
 
             # Start the new containers
+            echo "Starting the new containers..."
             docker-compose up -d
           EOF
