@@ -16,6 +16,10 @@ RUN bundle install
 # Copy the entire Rails application into the container
 COPY . .
 
+# **Use an argument for the master key**
+ARG RAILS_MASTER_KEY
+ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+
 # Precompile assets
 RUN bundle exec rake assets:precompile RAILS_ENV=production
 
