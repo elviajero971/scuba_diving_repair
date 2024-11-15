@@ -1,4 +1,4 @@
-name: Deploy Rails App with Nginx and PostgreSQL
+name: Deploy Rails App with Nginx
 
 on:
   push:
@@ -7,97 +7,45 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Rails App to Raspberry Pi with Docker
+    name: Build and Deploy Rails App
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass
+      - name: Set up Docker Buildx
+        run: docker buildx create --use
 
-      # Build Docker image for ARM architecture using buildx
-      - name: Build Docker image for ARM architecture
+      # Build and push Docker image to Docker Hub
+      - name: Build and Push Docker Image
         run: |
-          docker buildx create --use
-          docker buildx build --platform linux/arm/v7 --no-cache -t scubadiving-app . --load
+          docker login -u elviajero34 -p ${{ secrets.DOCKERHUB_PASSWORD }}
+          docker buildx build --platform linux/arm/v7 --tag elviajero34/scubadiving-app:latest . --push
 
-      # **Check the architecture of the built Docker image** and fail the job if it does not match the expected architecture
-      - name: Check Docker image architecture
-        run: |
-          ARCH=$(docker image inspect scubadiving-app --format='{{.Architecture}}')
-          if [ "$ARCH" != "arm" ]; then
-            echo "Error: Incorrect architecture $ARCH. Expected arm."
-            exit 1
-          else
-            echo "Architecture check passed: $ARCH"
-          fi
-
-
-      - name: Check Docker image size
-        run: |
-          IMAGE_SIZE=$(docker image inspect scubadiving-app --format='{{.Size}}')
-          echo "Docker image size: $((IMAGE_SIZE / 1024 / 1024)) MB"
-
-      - name: Save Docker image and transfer to Raspberry Pi
-        env:
-          RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
-          RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
-        run: |
-          # Save and transfer Docker image to the Raspberry Pi in /var/www/html/scubadiving
-          docker save scubadiving-app | bzip2 | sshpass -p $RASPBERRY_PI_PASSWORD ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
-          "mkdir -p /var/www/html/scubadiving && cd /var/www/html/scubadiving && bunzip2 | docker load"
-
-      - name: Transfer docker-compose.yml to Raspberry Pi
-        env:
-          RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
-          RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
-        run: |
-          # Transfer the docker-compose.yml file to the Raspberry Pi
-          sshpass -p $RASPBERRY_PI_PASSWORD scp -o StrictHostKeyChecking=no docker-compose.yml pi@$RASPBERRY_PI_IP:/var/www/html/scubadiving/
-
-      - name: Transfer nginx.conf to Raspberry Pi
-        env:
-          RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
-          RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
-        run: |
-          # Transfer the nginx.conf file to the Raspberry Pi
-          sshpass -p $RASPBERRY_PI_PASSWORD scp -o StrictHostKeyChecking=no nginx.conf pi@$RASPBERRY_PI_IP:/var/www/html/scubadiving/
-
-      - name: Deploy to Raspberry Pi
+      # Deploy to Raspberry Pi
+      - name: SSH into Raspberry Pi and deploy
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
         run: |
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
           "bash -s" << 'EOF'
-            # Navigate to the directory where the Docker image is stored
-            echo "Navigating to /var/www/html/scubadiving..."
+            # Pull the latest image from Docker Hub
+            docker pull your-dockerhub-username/scubadiving-app:latest
+
+            # Navigate to the app directory
             cd /var/www/html/scubadiving
 
             # Ensure Docker is installed
             if ! [ -x "$(command -v docker)" ]; then
-              echo "Installing Docker..."
               curl -fsSL https://get.docker.com -o get-docker.sh
               sh get-docker.sh
             fi
 
-            # Remove old containers
-            echo "Stopping and removing old containers..."
+            # Stop and remove old containers
             docker-compose down || true
 
-            # **Added --platform to the build command to ensure ARM architecture**
-            # Build and start new containers from /var/www/html/scubadiving
-            echo "Building and starting new containers..."
-            docker-compose build --no-cache
-          
-            # Start the containers
+            # Start the new containers
             docker-compose up -d
-          
-            # Run database migrations and seed data
-            echo "Running database migrations and seeding data..."
-            docker-compose exec app bundle exec rails db:setup
-
-            echo "Deployment complete."
           EOF
