@@ -17,7 +17,7 @@ RUN bundle install
 COPY . .
 
 # Precompile assets
-RUN bundle exec rake assets:precompile
+RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 # Run the database migrations
 RUN bundle exec rake db:migrate
