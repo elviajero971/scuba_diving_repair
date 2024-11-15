@@ -20,7 +20,7 @@ jobs:
       # Build and push Docker image to Docker Hub
       - name: Build and Push Docker Image
         run: |
-          docker login -u elviajero34 --password-stdin ${{ secrets.DOCKERHUB_PASSWORD }}
+          docker login -u elviajero34 -p ${{ secrets.DOCKERHUB_PASSWORD }}
           docker buildx build --platform linux/arm/v7 --tag elviajero34/scubadiving-app:latest . --push
 
       # Deploy to Raspberry Pi
