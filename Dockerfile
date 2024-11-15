@@ -19,6 +19,9 @@ COPY . .
 # Precompile assets
 RUN bundle exec rake assets:precompile
 
+# Run the database migrations
+RUN bundle exec rake db:migrate
+
 # Expose the Rails default port 3000
 EXPOSE 3000
 
