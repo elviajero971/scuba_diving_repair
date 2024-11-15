@@ -20,9 +20,6 @@ COPY . .
 ARG RAILS_MASTER_KEY
 ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
-# Precompile assets
-RUN bundle exec rake assets:precompile RAILS_ENV=production
-
 # Run the database migrations
 RUN bundle exec rake db:migrate
 

@@ -21,7 +21,6 @@ jobs:
       - name: Build and Push Docker Image
         env:
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           docker login -u elviajero34 -p $DOCKERHUB_PASSWORD
           docker buildx build --platform linux/arm/v7 --tag elviajero34/scubadiving-app:latest . --push
