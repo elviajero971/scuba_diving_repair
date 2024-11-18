@@ -79,5 +79,7 @@ jobs:
             echo "Starting the new containers..."
             docker-compose up -d
           
+            # Run database migrations
+            echo "Running database migrations..."
             docker-compose exec app bundle exec rake db:migrate RAILS_ENV=production
           EOF
