@@ -20,9 +20,6 @@ COPY . .
 ARG RAILS_MASTER_KEY
 ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
-# Run the database migrations
-RUN bundle exec rake db:migrate
-
 # Expose the Rails default port 3000
 EXPOSE 3000
 
