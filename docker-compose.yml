@@ -9,8 +9,9 @@ services:
       - RAILS_MASTER_KEY=62f170c11905ca2babdb123ec0301f01
     ports:
       - "3000:3000"
-#    volumes:
-#      - ".:/app"
+    volumes:
+      - ./db/production.sqlite3:/app/db/production.sqlite3  # Mount the SQLite file to persist data
+      - ./log:/app/log  # Persist logs as well
     command: bundle exec rails s -b '0.0.0.0' -p 3000
 
   nginx:
