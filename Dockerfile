@@ -5,7 +5,7 @@ FROM ruby:3.2.0-slim-bullseye
 WORKDIR /app
 
 # Update and install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends build-essential curl git libvips
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential curl git libvips sqlite3
 
 # Copy Gemfile and Gemfile.lock to Docker container
 COPY Gemfile Gemfile.lock ./

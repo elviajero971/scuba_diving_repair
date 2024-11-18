@@ -10,8 +10,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./db:/app/db  # Mount the entire db directory to persist data
-      - ./log:/app/log  # Persist logs as well
+      - ./db/production.sqlite3:/app/db/production.sqlite3  # Mount the SQLite file to persist data
     command: bundle exec rails s -b '0.0.0.0' -p 3000
 
   nginx:
