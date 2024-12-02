@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /en|fr|es|ca/ do
-    resources :services, only: [:index, :show, :new, :create] do
+    resources :services, only: [:index, :new, :create] do
       resources :payments, only: [:create]
       get 'payment_success', to: 'payments#success', as: 'payment_success'
       get 'payment_cancel', to: 'payments#cancel', as: 'payment_cancel'
