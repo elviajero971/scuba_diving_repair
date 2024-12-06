@@ -16,11 +16,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   tzdata && \
   rm -rf /var/lib/apt/lists/*
 
-# Add a volume for bundler cache (used in Docker Compose)
-VOLUME /usr/local/bundle
-
-# Set PATH to include Bundler's bin directory
-ENV PATH="/usr/local/bundle/bin:${PATH}"
+# Add Bundler's bin directory to PATH
+ENV PATH="/usr/local/bundle/bin:$PATH"
 
 # Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock ./
@@ -37,6 +34,12 @@ FROM base AS build
 # Set environment for asset precompilation
 ENV RAILS_ENV=production
 ENV NODE_ENV=production
+
+# Install Node.js and Yarn (required for asset compilation)
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g yarn && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy the entire application
 COPY . .
