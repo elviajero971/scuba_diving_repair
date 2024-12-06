@@ -28,7 +28,10 @@ jobs:
 
       # Step 4: Build and push the Docker image
       - name: Build and Push Docker Image
+        env:
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
+          docker login -u elviajero34 -p $DOCKERHUB_PASSWORD
           docker buildx build \
             --platform linux/arm/v7 \
             --tag elviajero34/scubadiving-app:latest \
