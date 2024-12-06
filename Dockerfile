@@ -34,8 +34,7 @@ ENV NODE_ENV=production
 # Copy the entire application
 COPY . .
 
-# Precompile assets
-RUN bundle exec rake assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 rails assets:precompile
 
 # ===========================
 # Stage 3: Production Image
