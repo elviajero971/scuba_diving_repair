@@ -19,6 +19,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Add a volume for bundler cache (used in Docker Compose)
 VOLUME /usr/local/bundle
 
+# Set PATH to include Bundler's bin directory
+ENV PATH="/usr/local/bundle/bin:${PATH}"
+
 # Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock ./
 
@@ -38,6 +41,7 @@ ENV NODE_ENV=production
 # Copy the entire application
 COPY . .
 
+# Precompile assets
 RUN SECRET_KEY_BASE_DUMMY=1 rails assets:precompile
 
 # ===========================
