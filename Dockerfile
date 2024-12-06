@@ -22,8 +22,9 @@ ENV PATH="/usr/local/bundle/bin:$PATH"
 # Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock ./
 
-# Install gems
-RUN bundle config set --global path '/usr/local/bundle' && \
+# Install the matching Bundler version and gems
+RUN gem install bundler -v "$(tail -n 1 Gemfile.lock | awk '{print $2}')" && \
+    bundle config set --global path '/usr/local/bundle' && \
     bundle install --jobs=4 --retry=3
 
 # ===========================
