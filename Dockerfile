@@ -16,11 +16,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   tzdata && \
   rm -rf /var/lib/apt/lists/*
 
-# Copy Gemfile and Gemfile.lock for caching
+# Add a volume for bundler cache (used in Docker Compose)
+VOLUME /usr/local/bundle
+
+# Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock ./
 
 # Install gems
-RUN bundle install --jobs=4 --retry=3
+RUN bundle config set --global path '/usr/local/bundle' && \
+    bundle install --jobs=4 --retry=3
 
 # ===========================
 # Stage 2: Build Assets
