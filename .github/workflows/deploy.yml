@@ -69,8 +69,6 @@ jobs:
             docker-compose up -d --build
 
             # Run database migrations
-            echo "Running database migrations if needed..."
-            if docker-compose exec app bundle exec rake db:pending; then
-              docker-compose exec app bundle exec rake db:migrate
-            fi
+            echo "Running database migrations..."
+            docker-compose exec app bundle exec rake db:migrate
           EOF
