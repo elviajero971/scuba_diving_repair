@@ -31,21 +31,21 @@ RUN bundle config set --global path '/usr/local/bundle' && \
 # ===========================
 FROM base AS build
 
-# Set environment for asset precompilation
-ENV RAILS_ENV=production
-ENV NODE_ENV=production
-
-# Install Node.js and Yarn (required for asset compilation)
+# Install Node.js and Yarn
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g yarn && \
     rm -rf /var/lib/apt/lists/*
 
+# Set environment for asset precompilation
+ENV RAILS_ENV=production
+ENV NODE_ENV=production
+
 # Copy the entire application
 COPY . .
 
 # Precompile assets
-RUN SECRET_KEY_BASE_DUMMY=1 rails assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE_DUMMY=1 rails assets:precompile
 
 # ===========================
 # Stage 3: Production Image
