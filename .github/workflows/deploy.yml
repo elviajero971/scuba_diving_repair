@@ -22,15 +22,14 @@ jobs:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
         run: |
-          sshpass -p $RASPBERRY_PI_PASSWORD scp -o StrictHostKeyChecking=no image.tar pi@$RASPBERRY_PI_IP:/tmp/image.tar
-          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP \
-          "docker load < /tmp/image.tar"
+          sshpass -p $RASPBERRY_PI_PASSWORD scp -o ServerAliveInterval=120 -o ServerAliveCountMax=100 -o StrictHostKeyChecking=no image.tar pi@$RASPBERRY_PI_IP:/tmp/image.tar
+          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o ServerAliveInterval=120 -o ServerAliveCountMax=100 -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP "docker load < /tmp/image.tar"
       - name: Deploy on Raspberry Pi
         env:
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
         run: |
-          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP <<EOF
+          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o ServerAliveInterval=120 -o ServerAliveCountMax=100 -o StrictHostKeyChecking=no pi@$RASPBERRY_PI_IP <<EOF
             cd /var/www/html/scubadiving
             docker-compose up -d --build
             docker-compose exec app bundle exec rake db:migrate
