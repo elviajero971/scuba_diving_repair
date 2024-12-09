@@ -69,6 +69,8 @@ jobs:
             echo "Restarting containers..."
             docker-compose down --remove-orphans
             docker-compose up -d --build
+            docker-compose run --rm certbot certonly --webroot --webroot-path=/var/lib/letsencrypt --email lucas.illiano@hotmail.com --agree-tos --no-eff-email -d scubadiving.nomadev.online
+
 
             # Run database migrations
             echo "Running database migrations..."

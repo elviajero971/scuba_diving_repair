@@ -46,10 +46,10 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = false
+  config.force_ssl = true
 
-  config.action_controller.default_url_options = { host: "scubadiving.nomadev.online", protocol: "http" }
-  config.action_mailer.default_url_options = { host: "scubadiving.nomadev.online", protocol: "http" }
+  # config.action_controller.default_url_options = { host: "scubadiving.nomadev.online", protocol: "http" }
+  # config.action_mailer.default_url_options = { host: "scubadiving.nomadev.online", protocol: "http" }
 
 
   # Include generic and useful information about system operation, but avoid logging too much
