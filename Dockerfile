@@ -68,7 +68,7 @@ RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompile assets for production without requiring secret RAILS_MASTER_KEY
 ENV NODE_OPTIONS=--openssl-legacy-provider
-RUN SECRET_KEY_BASE_DUMMY=1 rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # # Final stage for app image
 FROM base
