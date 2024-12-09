@@ -47,7 +47,7 @@ jobs:
           RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
           RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
         run: |
-          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o StrictHostKeyChecking=no $RASPBERRY_PI_USER@$RASPBERRY_PI_IP <<EOF
+          sshpass -p $RASPBERRY_PI_PASSWORD ssh -o ServerAliveInterval=120 -o ServerAliveCountMax=100 -o StrictHostKeyChecking=no $RASPBERRY_PI_USER@$RASPBERRY_PI_IP <<EOF
             set -e
             echo "Deploying application..."
 
