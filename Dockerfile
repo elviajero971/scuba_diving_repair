@@ -53,11 +53,13 @@ RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 
-# Install the correct Bundler version from Gemfile.lock
-RUN gem install bundler -v "$(tail -n 1 Gemfile.lock | awk '{print $2}')" && \
+# Extract and install the exact Bundler version from Gemfile.lock
+RUN BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ') && \
+    gem install bundler -v "$BUNDLER_VERSION" && \
     bundle install && \
     rm -rf ~/.bundle/ "/usr/local/bundle"/ruby/*/cache "/usr/local/bundle"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
+
 
 
 # Install node modules
