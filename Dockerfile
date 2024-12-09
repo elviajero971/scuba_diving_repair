@@ -6,7 +6,7 @@ ARG RUBY_VERSION=3.2.0
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 
 # Set working directory
-WORKDIR /rails
+WORKDIR /app
 
 # Set production environment
 ENV RAILS_ENV="production" \
@@ -110,8 +110,8 @@ RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
 USER rails:rails
 
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Remove the custom entrypoint
+# ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000

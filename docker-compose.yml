@@ -8,9 +8,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./db/production.sqlite3:/app/db/production.sqlite3  # Mount the SQLite file to persist data
-      - ruby-bundle_cache:/usr/local/bundle                     # Persist Bundler cache
-    command: bundle exec rails s -b '0.0.0.0' -p 3000
+      - ./db/production.sqlite3:/app/db/production.sqlite3
+      - ruby-bundle-cache:/usr/local/bundle
 
   nginx:
     image: nginx:latest
