@@ -53,18 +53,20 @@ RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 
-# Extract and install the exact Bundler version from Gemfile.lock
-RUN BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ') && \
+# Install Ruby Gems with caching
+# 🔥 Highlighted: Added BuildKit cache mount for Bundler
+COPY Gemfile Gemfile.lock ./
+RUN --mount=type=cache,target=/usr/local/bundle \
+    BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ') && \
     gem install bundler -v "$BUNDLER_VERSION" && \
     bundle install && \
-    rm -rf ~/.bundle/ "/usr/local/bundle"/ruby/*/cache "/usr/local/bundle"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+    rm -rf ~/.bundle/ "/usr/local/bundle"/ruby/*/cache "/usr/local/bundle"/ruby/*/bundler/gems/*/.git
 
-
-
-# Install node modules
+# Install Node modules with caching
+# 🔥 Highlighted: Added BuildKit cache mount for Yarn
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
+    yarn install --frozen-lockfile
 
 # Copy application code
 COPY . .
