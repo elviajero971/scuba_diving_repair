@@ -97,6 +97,10 @@ RUN apt-get update -qq && \
     pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# Install Certbot
+RUN apt-get update -qq && apt-get install -y --no-install-recommends certbot && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
 # Install JavaScript dependencies
 ARG NODE_VERSION=22.11.0
 ARG YARN_VERSION=1.22.22
