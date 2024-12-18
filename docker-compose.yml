@@ -18,32 +18,13 @@ services:
     depends_on:
       - app
     ports:
-      - "443:443"
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
     networks:
       - scubadiving_network
-
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    entrypoint: /bin/sh -c 'trap exit TERM; while :; do sleep 6h & wait $${!}; certbot renew; done'
-    networks:
-      - scubadiving_network
-
 volumes:
   ruby-bundle-cache:
     driver: local
-  certbot-etc:
-    driver: local
-  certbot-var:
-    driver: local
-
 networks:
   scubadiving_network:
