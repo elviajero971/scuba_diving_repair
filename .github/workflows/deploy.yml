@@ -71,6 +71,7 @@ jobs:
             docker-compose up -d --build
           
             # check certbot container
+            echo "Checking Certbot container..."
             docker-compose run --rm certbot --version || { echo "Certbot not found! Exiting..."; exit 1; }
           
             # Generate SSL Certificate
