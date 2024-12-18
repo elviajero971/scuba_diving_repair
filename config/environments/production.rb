@@ -45,8 +45,11 @@ Rails.application.configure do
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = false
+  # Add this line to trust the proxy and correctly generate URLs
+  config.action_controller.default_url_options = { host: 'scubadiving.nomadev.online', protocol: 'https' }
+
+  # Trust the 'X-Forwarded-Proto' header from NGINX
+  # config.action_dispatch.trusted_proxies = ['127.0.0.1', '::1'] # Include localhost for Docker communication
 
   # config.action_controller.default_url_options = { host: "scubadiving.nomadev.online", protocol: "http" }
   # config.action_mailer.default_url_options = { host: "scubadiving.nomadev.online", protocol: "http" }
