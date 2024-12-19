@@ -21,11 +21,8 @@ services:
     volumes:
       - ./db/production.sqlite3:/app/db/production.sqlite3
       - ruby-bundle-cache:/usr/local/bundle
-    networks:
-      - scubadiving_network
     env_file:
       - .env
-
   nginx:
     image: nginx:latest
     depends_on:
@@ -34,10 +31,6 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - scubadiving_network
 volumes:
   ruby-bundle-cache:
     driver: local
-networks:
-  scubadiving_network:
