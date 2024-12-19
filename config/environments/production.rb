@@ -58,11 +58,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: 'smtp-fr.securemail.pro',           # SMTP server address
-    port: 465,                        # Port for TLS
-    domain: 'nomadev.online',         # Your domain name
-    user_name: 'scubadiving@nomadev.online', # Email username
-    password: 'your-email-password',  # Email password
+    address: ENV['SMTP_HOST'],      # SMTP server address
+    port: ENV['SMTP_PORT'],                        # Port for TLS
+    domain: ENV['SMTP_DOMAIN'],         # Your domain name
+    user_name: ENV['SMTP_USER'], # Email username
+    password: ENV['SMTP_PASSWORD'],  # Email password
     authentication: 'login',          # Authentication type (plain, login, or cram_md5)
     enable_starttls_auto: true        # Enable TLS
   }

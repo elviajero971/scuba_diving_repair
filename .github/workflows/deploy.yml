@@ -67,20 +67,20 @@ jobs:
           
             # Create or update the .env file
             echo "Updating environment variables..."
-            cat <<EOT > .env
-            RAILS_MASTER_KEY=$RAILS_MASTER_KEY
-            STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
-            STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY
-            PRICE_SCUBA_PREMIUM=$PRICE_SCUBA_PREMIUM
-            PRICE_SCUBA_BASIC=$PRICE_SCUBA_BASIC
-            ENV_HOST=$ENV_HOST
-            STRIPE_ENDPOINT_SECRET=$STRIPE_ENDPOINT_SECRET
-            SMTP_HOST=$SMTP_HOST
-            SMTP_PORT=$SMTP_PORT
-            SMTP_DOMAIN=$SMTP_DOMAIN
-            SMTP_USER=$SMTP_USER
-            SMTP_PASSWORD=$SMTP_PASSWORD
-            EOT
+            {
+              echo "RAILS_MASTER_KEY=$RAILS_MASTER_KEY"
+              echo "STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY"
+              echo "STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY"
+              echo "PRICE_SCUBA_PREMIUM=$PRICE_SCUBA_PREMIUM"
+              echo "PRICE_SCUBA_BASIC=$PRICE_SCUBA_BASIC"
+              echo "ENV_HOST=$ENV_HOST"
+              echo "STRIPE_ENDPOINT_SECRET=$STRIPE_ENDPOINT_SECRET"
+              echo "SMTP_HOST=$SMTP_HOST"
+              echo "SMTP_PORT=$SMTP_PORT"
+              echo "SMTP_DOMAIN=$SMTP_DOMAIN"
+              echo "SMTP_USER=$SMTP_USER"
+              echo "SMTP_PASSWORD=$SMTP_PASSWORD"
+            } > .env
           
             # Pull the latest image from Docker Hub
             echo "Pulling the latest Docker image..."
