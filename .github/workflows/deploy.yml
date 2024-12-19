@@ -76,18 +76,18 @@ jobs:
           
             # Create or update the .env file
             echo "Updating environment variables..."
-            echo "RAILS_MASTER_KEY=$RAILS_MASTER_KEY" > .env 
-            echo "STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY" > .env
-            echo "STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY" > .env
-            echo "PRICE_SCUBA_PREMIUM=$PRICE_SCUBA_PREMIUM" > .env
-            echo "PRICE_SCUBA_BASIC=$PRICE_SCUBA_BASIC" > .env
-            echo "ENV_HOST=$ENV_HOST" > .env
-            echo "STRIPE_ENDPOINT_SECRET=$STRIPE_ENDPOINT_SECRET" > .env
-            echo "SMTP_HOST=$SMTP_HOST" > .env
-            echo "SMTP_PORT=$SMTP_PORT" > .env
-            echo "SMTP_DOMAIN=$SMTP_DOMAIN" > .env
-            echo "SMTP_USER=$SMTP_USER" > .env
-            echo "SMTP_PASSWORD=$SMTP_PASSWORD" > .env
+            echo "RAILS_MASTER_KEY=$RAILS_MASTER_KEY" >> .env 
+            echo "STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY" >> .env
+            echo "STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY" >> .env
+            echo "PRICE_SCUBA_PREMIUM=$PRICE_SCUBA_PREMIUM" >> .env
+            echo "PRICE_SCUBA_BASIC=$PRICE_SCUBA_BASIC" >> .env
+            echo "ENV_HOST=$ENV_HOST" >> .env
+            echo "STRIPE_ENDPOINT_SECRET=$STRIPE_ENDPOINT_SECRET" >> .env
+            echo "SMTP_HOST=$SMTP_HOST" >> .env
+            echo "SMTP_PORT=$SMTP_PORT" >> .env
+            echo "SMTP_DOMAIN=$SMTP_DOMAIN" >> .env
+            echo "SMTP_USER=$SMTP_USER" >> .env
+            echo "SMTP_PASSWORD=$SMTP_PASSWORD" >> .env
           
             # Pull the latest image from Docker Hub
             echo "Pulling the latest Docker image..."
