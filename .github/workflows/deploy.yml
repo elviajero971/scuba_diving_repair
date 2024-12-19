@@ -32,6 +32,20 @@ jobs:
       - name: Build and Push Docker Image
         env:
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        run: |
+          docker login -u elviajero34 -p $DOCKERHUB_PASSWORD
+          docker buildx build \
+            --platform linux/arm/v7 \
+            --tag elviajero34/scubadiving-app:latest \
+            --cache-from=type=registry,ref=elviajero34/scubadiving-app:latest \
+            --push .
+
+      # Step 5: Deploy to Raspberry Pi
+      - name: Deploy to Raspberry Pi
+        env:
+          RASPBERRY_PI_USER: ${{ secrets.RASPBERRY_PI_USER }}
+          RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
+          RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
           PRICE_SCUBA_PREMIUM: ${{ secrets.PRICE_SCUBA_PREMIUM }}
@@ -44,37 +58,29 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         run: |
-          docker login -u elviajero34 -p $DOCKERHUB_PASSWORD
-          docker buildx build \
-            --build-arg $STRIPE_SECRET_KEY \
-            --build-arg $STRIPE_PUBLISHABLE_KEY \
-            --build-arg $PRICE_SCUBA_PREMIUM \
-            --build-arg $PRICE_SCUBA_BASIC \
-            --build-arg $ENV_HOST \
-            --build-arg $STRIPE_ENDPOINT_SECRET \
-            --build-arg $SMTP_HOST \
-            --build-arg $SMTP_PORT \
-            --build-arg $SMTP_DOMAIN \
-            --build-arg $SMTP_USER \
-            --build-arg $SMTP_PASSWORD \
-            --platform linux/arm/v7 \
-            --tag elviajero34/scubadiving-app:latest \
-            --cache-from=type=registry,ref=elviajero34/scubadiving-app:latest \
-            --push .
-
-      # Step 5: Deploy to Raspberry Pi
-      - name: Deploy to Raspberry Pi
-        env:
-          RASPBERRY_PI_USER: ${{ secrets.RASPBERRY_PI_USER }}
-          RASPBERRY_PI_IP: ${{ secrets.RASPBERRY_PI_IP }}
-          RASPBERRY_PI_PASSWORD: ${{ secrets.RASPBERRY_PI_PASSWORD }}
-        run: |
           sshpass -p $RASPBERRY_PI_PASSWORD ssh -o ServerAliveInterval=120 -o ServerAliveCountMax=100 -o StrictHostKeyChecking=no $RASPBERRY_PI_USER@$RASPBERRY_PI_IP <<EOF
             set -e
             echo "Deploying application..."
           
             # Navigate to app directory
             cd /var/www/html/scubadiving
+          
+            # Create or update the .env file
+            echo "Updating environment variables..."
+            cat <<EOT > .env
+            RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+            STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
+            STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY
+            PRICE_SCUBA_PREMIUM=$PRICE_SCUBA_PREMIUM
+            PRICE_SCUBA_BASIC=$PRICE_SCUBA_BASIC
+            ENV_HOST=$ENV_HOST
+            STRIPE_ENDPOINT_SECRET=$STRIPE_ENDPOINT_SECRET
+            SMTP_HOST=$SMTP_HOST
+            SMTP_PORT=$SMTP_PORT
+            SMTP_DOMAIN=$SMTP_DOMAIN
+            SMTP_USER=$SMTP_USER
+            SMTP_PASSWORD=$SMTP_PASSWORD
+            EOT
           
             # Pull the latest image from Docker Hub
             echo "Pulling the latest Docker image..."

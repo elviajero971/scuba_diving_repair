@@ -5,6 +5,17 @@ services:
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
       - RAILS_MASTER_KEY=62f170c11905ca2babdb123ec0301f01
+      - STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
+      - STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY
+      - PRICE_SCUBA_PREMIUM=$PRICE_SCUBA_PREMIUM
+      - PRICE_SCUBA_BASIC=$PRICE_SCUBA_BASIC
+      - ENV_HOST=$ENV_HOST
+      - STRIPE_ENDPOINT_SECRET=$STRIPE_ENDPOINT_SECRET
+      - SMTP_HOST=$SMTP_HOST
+      - SMTP_PORT=$SMTP_PORT
+      - SMTP_DOMAIN=$SMTP_DOMAIN
+      - SMTP_USER=$SMTP_USER
+      - SMTP_PASSWORD=$SMTP_PASSWORD
     ports:
       - "3000:3000"
     volumes:
@@ -12,6 +23,8 @@ services:
       - ruby-bundle-cache:/usr/local/bundle
     networks:
       - scubadiving_network
+    env_file:
+      - .env
 
   nginx:
     image: nginx:latest
