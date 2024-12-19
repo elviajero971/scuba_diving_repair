@@ -52,7 +52,23 @@ Rails.application.configure do
   # config.action_dispatch.trusted_proxies = ['127.0.0.1', '::1'] # Include localhost for Docker communication
 
   # config.action_controller.default_url_options = { host: "scubadiving.nomadev.online", protocol: "http" }
-  # config.action_mailer.default_url_options = { host: "scubadiving.nomadev.online", protocol: "http" }
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    address: 'smtp-fr.securemail.pro',           # SMTP server address
+    port: 465,                        # Port for TLS
+    domain: 'nomadev.online',         # Your domain name
+    user_name: 'scubadiving@nomadev.online', # Email username
+    password: 'your-email-password',  # Email password
+    authentication: 'login',          # Authentication type (plain, login, or cram_md5)
+    enable_starttls_auto: true        # Enable TLS
+  }
+
+  # Host for URL generation in emails (e.g., links for Devise)
+  config.action_mailer.default_url_options = { host: 'scubadiving.nomadev.online' }
 
 
   # Include generic and useful information about system operation, but avoid logging too much
